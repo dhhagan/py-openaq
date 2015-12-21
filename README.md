@@ -111,6 +111,11 @@ Provides data about individual measurements
 | has_geo | boolean | None | True |
 | value_from | number | None | 100 |
 | value_to | number | None | 200 |
-| date_from | date | None | '2015-01-01 |
-| date_to | date | None | '2015-12-20 |
-| date_to | date | None | '2015-12-20 |
+| date_from | date | None | '2015-01-01' |
+| date_to | date | None | '2015-12-20' |
+| sort | string | None | 'asc' |
+| order_by | string | None | 'city' |
+| include_fields | array | None | ['location', 'parameter'] |
+| limit | number | None | 100 |
+| page | number | None | 2 |
+| skip | number | None | 500 |
