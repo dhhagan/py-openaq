@@ -12,24 +12,36 @@ class SetupTestCase(unittest.TestCase):
         self.assertIsInstance(self.api, openaq.OpenAQ)
 
     def test_cities(self):
-        status, resp = self.api.cities()
+        status, resp = self.api.cities(
+                        country = 'US'
+                        )
 
         self.assertTrue(status == 200)
 
     def test_countries(self):
-        pass
+        status, resp = self.api.countries()
+
+        self.assertTrue(status == 200)
 
     def test_latest(self):
-        pass
+        status, resp = self.api.latest(
+            city = 'Delhi',
+            country = 'IN',
+            location = 'Punjabi Bagh',
+            value_from = 200
+        )
+
+        self.assertTrue(status == 200)
 
     def test_locations(self):
-        pass
+        status, resp = self.api.locations(city = 'Delhi')
+
+        self.assertTrue(status == 200)
 
     def test_measurements(self):
-        pass
+        status, resp = self.api.measurements(city = 'Delhi')
 
-    def test_failed_call(self):
-        pass
+        self.assertTrue(status == 200)
 
 if __name__ == '__main__':
     unittest.main()
