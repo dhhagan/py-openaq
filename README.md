@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dhhagan/py-openaq.svg?branch=master)](https://travis-ci.org/dhhagan/py-openaq)
+
 # py-openaq
 This project contains the python wrapper for the [Open AQ API](https://docs.openaq.org/).
 
@@ -34,7 +36,7 @@ All methods return a tuple containing `(status_code, response)`
     api = openaq.OpenAQ()
 
     ...
-    
+
 | parameter | type | default | options | comments |
 |:----------|:----:|:-------:|:--------|:--------:|
 | version | string | 'v1' || |
@@ -47,7 +49,7 @@ All methods return a tuple containing `(status_code, response)`
 Provides a listing of cities within the platform
 
     api.cities()
-    
+
 | parameter | type | default | example |
 |:----------|:----:|:-------:|:--------|
 | country | string | None | 'US' |
@@ -57,13 +59,13 @@ Provides a listing of cities within the platform
 Provides a listing of countries within the platform
 
     api.countries()
-    
+
 #### latest
 
 Provides the latest parameter for every available location in the platform
 
     api.latest()
-    
+
 | parameter | type | default | example |
 |:----------|:----:|:-------:|:--------|
 | city | string | None | 'Delhi' |
@@ -79,9 +81,9 @@ Provides the latest parameter for every available location in the platform
 Provides metadata for distinct measurement locations
 
     api.locations()
-    
+
 *NOTE: Dates are in the format YYYY-MM-DD*
-    
+
 | parameter | type | default | example |
 |:----------|:----:|:-------:|:--------|
 | city | string | None | 'Delhi' |
@@ -99,9 +101,9 @@ Provides metadata for distinct measurement locations
 Provides data about individual measurements
 
     api.measurements()
-    
+
 *NOTE: Dates are in the format YYYY-MM-DD*
-    
+
 | parameter | type | default | example |
 |:----------|:----:|:-------:|:--------|
 | city | string | None | 'Delhi' |
