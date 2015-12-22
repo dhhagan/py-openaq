@@ -8,6 +8,8 @@ This project contains the python wrapper for the [Open AQ API](https://docs.open
 
 ## Installation
 
+    pip install py-openaq
+
 ### Git
     >>> git clone https://github.com/dhhagan/py-openaq.git
     >>> cd /py-openaq

@@ -22,13 +22,17 @@ setup(
 	packages = ['openaq'],
 	test_suite = 'tests',
 	classifiers = [
-		'Development Status :: 1 - alpha',
+		'Development Status :: 3 - Alpha',
 		'Operating System :: OS Independent',
 		'Intended Audience :: Science/Research',
-		'Programming Language :: Python :: 3',
+		'Intended Audience :: Developers',
+		'Intended Audience :: Education',
+		'Programming Language :: Python :: 2.7',
+		'Programming Language :: Python :: 3.3',
+		'Programming Language :: Python :: 3.4',
+		'Programming Language :: Python :: 3.5',
+		'Topic :: Scientific/Engineering :: Atmospheric Science',
 		'Topic :: Software Development',
-		'Topic :: System :: Software',
-		'Topic :: API',
 		'Topic :: Software Development :: Libraries :: Python Modules'
 	]
 )
