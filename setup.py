@@ -20,6 +20,7 @@ setup(
 	url = 'https://github.com/dhhagan/py-openaq',
 	license = 'MIT',
 	packages = ['openaq'],
+	test_suite = 'tests',
 	classifiers = [
 		'Development Status :: 1 - alpha',
 		'Operating System :: OS Independent',

@@ -1,6 +1,5 @@
 language: python
 python:
-  - "2.6"
   - "2.7"
   - "3.2"
   - "3.3"
@@ -9,5 +8,8 @@ python:
   - "3.5-dev" # 3.5 development branch
   - "nightly" # currently points to 3.6-dev
 
-  install:
-      - "pip install requests"
+install:
+  - "pip install requests"
+
+script:
+  - "coverage run --source=setup.py test"
