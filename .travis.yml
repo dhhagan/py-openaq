@@ -12,4 +12,4 @@ install:
   - "pip install requests"
 
 script:
-  - "coverage run --source=setup.py test"
+  - "coverage run --source=openaq setup.py test"
