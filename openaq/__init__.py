@@ -43,37 +43,13 @@ class API(object):
                 resp = requests.get(url, auth = auth, headers = self._headers)
             except Exception as error:
                 raise ApiError(error)
-        elif method == 'POST':
-            try:
-                resp = requests.post(url, auth = auth, headers = self._headers, data = data)
-            except Exception as error:
-                raise ApiError(error)
-        elif method == 'PUT':
-            try:
-                resp = requests.put(url, auth = auth, headers = self._headers, data = data)
-            except Exception as error:
-                raise ApiError(error)
-        elif method == 'DELETE':
-            try:
-                resp = requests.delete(url, auth = auth, headers = self._headers)
-            except Exception as error:
-                raise ApiError(error)
         else:
-            return "Invalid Method"
+            raise ApiError("Invalid Method")
 
         return resp.status_code, resp.json()
 
     def _get(self, url, **kwargs):
         return self._send(url, 'GET', **kwargs)
-
-    def _post(self, url, data):
-        pass
-
-    def _put(self, url, data):
-        pass
-
-    def _delete(self, url):
-        pass
 
 class OpenAQ(API):
     ''' Instance of the OpenAQ API as documented here: https://docs.openaq.org/ '''
