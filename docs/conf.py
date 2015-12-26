@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 # py-openaq documentation build configuration file, created by
@@ -15,7 +14,6 @@
 
 import sys
 import os
-import shlex
 
 import sphinx_rtd_theme
 
