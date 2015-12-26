@@ -13,7 +13,7 @@ Installation
 ------------
 You can install this package in the usual way using ``pip``::
 
-    #pip install py-openaq
+    pip install py-openaq
 
 
 Requirements
@@ -33,11 +33,11 @@ Initialization
 
 The following code example shows how to make your first API call::
 
-    #import openaq
+    import openaq
 
-    #api = openaq.OpenAQ()
+    api = openaq.OpenAQ()
 
-    #status, resp = api.cities()
+    status, resp = api.cities()
 
 Understanding the Response format
 ---------------------------------
@@ -69,9 +69,9 @@ Coupling with Pandas DataFrame
 Pandas is awesome. If you are working with data, you should be using DataFrames. To
 easily dump your json response into a DataFrame::
 
-    #from pandas.io.json import json_normalize
+    from pandas.io.json import json_normalize
 
-    #df = json_normalize(resp)
+    df = json_normalize(resp)
 
 
 API Reference
