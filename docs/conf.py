@@ -14,8 +14,14 @@
 
 import sys
 import os
-
 import sphinx_rtd_theme
+
+# Mock things
+import mock
+
+MOCK_MODULES = ['pandas', 'openaq']
+for each in MOCK_MODULES:
+    sys.modules[each] = mock.Mock()
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
