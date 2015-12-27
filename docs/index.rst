@@ -33,11 +33,11 @@ Initialization
 
 The following code example shows how to make your first API call::
 
-import openaq
+    import openaq
 
-api = openaq.OpenAQ()
+    api = openaq.OpenAQ()
 
-status, resp = api.cities()
+    status, resp = api.cities()
 
 Understanding the Response format
 ---------------------------------
