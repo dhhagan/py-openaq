@@ -19,7 +19,7 @@ import sphinx_rtd_theme
 # Mock things
 import mock
 
-MOCK_MODULES = ['pandas', 'openaq']
+MOCK_MODULES = ['pandas']
 for each in MOCK_MODULES:
     sys.modules[each] = mock.Mock()
 
