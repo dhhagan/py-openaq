@@ -43,5 +43,14 @@ class SetupTestCase(unittest.TestCase):
 
         self.assertTrue(status == 200)
 
+    def test_measurements_with_params(self):
+        status, resp = self.api.measurements(include_fields = ['location', 'parameter',
+                                'date', 'value'])
+
+        self.assertTrue(status == 200)
+
+    def test_repr(self):
+        self.assertTrue(self.__repr__ == 'OpenAQ API')
+
 if __name__ == '__main__':
     unittest.main()

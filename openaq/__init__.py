@@ -9,6 +9,8 @@ __all__ = ['OpenAQ']
 __version__ = get_distribution('py-openaq').version
 
 class API(object):
+    """Generic API wrapper object.
+    """
     def __init__(self, **kwargs):
         self._key       = kwargs.pop('key', '')
         self._pswd      = kwargs.pop('pswd', '')
@@ -17,6 +19,14 @@ class API(object):
         self._headers   = {'content-type': 'application/json'}
 
     def _make_url(self, endpoint, **kwargs):
+        """Internal method to create a url from an endpoint.
+
+        :param endpoint: Endpoint for an API call
+
+        :type endpoint: string
+
+        :returns: url
+        """
         endpoint = "{}/{}/{}".format(self._baseurl, self._version, endpoint)
 
         extra = []
@@ -31,7 +41,20 @@ class API(object):
         return endpoint
 
     def _send(self, endpoint, method = 'GET', data = None, **kwargs):
-        ''' '''
+        """Make an API call of any method
+
+        :param endpoint: API endpoint
+        :param method: API call type. Options are PUT, POST, GET, DELETE
+        :param data: data to send for POST and PUT calls
+
+        :type endpoint: string
+        :type method: string
+        :type data: dictionary
+
+        :returns: (status_code, json_response)
+
+        :raises ApiError: raises an exception
+        """
         auth = (self._key, self._pswd)
         url  = self._make_url(endpoint, **kwargs)
 
@@ -56,6 +79,8 @@ class OpenAQ(API):
 
     :param version: API version.
     :param kwargs: API options.
+
+    :type version: string
     """
     def __init__(self, version = 'v1', **kwargs):
         self._baseurl = 'https://api.openaq.org'
