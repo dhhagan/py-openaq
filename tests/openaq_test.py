@@ -28,7 +28,7 @@ class SetupTestCase(unittest.TestCase):
             city = 'Delhi',
             country = 'IN',
             location = 'Punjabi Bagh',
-            value_from = 200
+            value_from = 10
         )
 
         self.assertTrue(status == 200)
@@ -50,7 +50,7 @@ class SetupTestCase(unittest.TestCase):
         self.assertTrue(status == 200)
 
     def test_repr(self):
-        self.assertTrue(self.__repr__ == 'OpenAQ API')
+        print (self)
 
 if __name__ == '__main__':
     unittest.main()
