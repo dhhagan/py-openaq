@@ -112,16 +112,12 @@ class OpenAQ(API):
         :param parameter: Limit results by a specific parameter. Options include [
                             pm25, pm10, so2, co, no2, o3, bc]
         :param has_geo: Filter items that do or do not have geographic information.
-        :param value_from: Show results above a value threshold.
-        :param value_to: Show results below a value threshold.
 
         :type city: string
         :type country: string
         :type location: string
         :type parameter: string
         :type has_geo: boolean
-        :type value_from: number
-        :type value_to: number
         """
         return self._get('latest', **kwargs)
 
@@ -135,20 +131,12 @@ class OpenAQ(API):
         :param parameter: Limit results by a specific parameter. Options include [
                             pm25, pm10, so2, co, no2, o3, bc]
         :param has_geo: Filter items that do or do not have geographic information.
-        :param value_from: Show results above a value threshold.
-        :param value_to: Show results below a value threshold.
-        :param date_from: Show results after a certain date. Format should be ``Y-M-D``
-        :param date_to: Show results before a certain date. Format should be ``Y-M-D``
 
         :type city: string
         :type country: string
         :type location: string
         :type parameter: string
         :type has_geo: boolean
-        :type value_from: number
-        :type value_to: number
-        :type date_from: date
-        :type date_to: date
         """
         return self._get('locations', **kwargs)
 
