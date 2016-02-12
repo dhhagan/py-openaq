@@ -27,8 +27,7 @@ class SetupTestCase(unittest.TestCase):
         status, resp = self.api.latest(
             city = 'Delhi',
             country = 'IN',
-            location = 'Punjabi Bagh',
-            value_from = 10
+            location = 'Punjabi Bagh'
         )
 
         self.assertTrue(status == 200)
