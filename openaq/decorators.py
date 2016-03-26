@@ -11,7 +11,7 @@ def pandasize():
     def decorator(f):
         @wraps(f)
         def decorated_function( *args, **kwargs ):
-            df      = kwargs.get('df', True)
+            df      = kwargs.get('df', False)
             index   = kwargs.get('index', 'local')
 
             if df == True and has_pandas == True:

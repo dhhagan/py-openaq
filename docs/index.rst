@@ -79,4 +79,4 @@ API Reference
 
 .. module:: openaq
 .. autoclass:: OpenAQ
-   :members: cities, countries, latest, locations, measurements
+   :members: cities, countries, latest, locations, measurements, fetches
