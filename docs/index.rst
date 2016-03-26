@@ -15,12 +15,18 @@ You can install this package in the usual way using ``pip``::
 
     pip install py-openaq
 
+You can upgrade with:
+
+    pip install py-openaq --upgrade
+
 
 Requirements
 ------------
 
 The only requirement for this package is ``requests``. In the future (v1),
 ``pandas`` will be recommended and significant features will depend on it.
+
+**UPDATE**: As of v0.3.0, `pandas` support has been added, but is not a requirement.
 
 Current Limitations
 -------------------
@@ -73,6 +79,22 @@ easily dump your json response into a DataFrame::
 
     df = json_normalize(resp)
 
+As of v0.3.0, an optional keyword argument (`df`) has been added to the following API methods:
+
+  * cities
+  * countries
+  * latest
+  * locations
+  * measurements
+
+By using this keyword argument, the results of the API call will return a pandas DataFrame rather than a json response.
+
+Example:
+
+    >>> df = api.latest(df = True)
+
+The results are parsed through the `pandasize` decorator which tries to interpret the fields in the most ideal format possible.
+Thus, all datetime fields should be converted to proper python datetimes to allow for easy splicing, manipulation, and plotting.
 
 API Reference
 =============

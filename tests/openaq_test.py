@@ -1,5 +1,6 @@
 import unittest
 import openaq
+import pandas as pd
 
 class SetupTestCase(unittest.TestCase):
     def setUp(self):
@@ -48,8 +49,29 @@ class SetupTestCase(unittest.TestCase):
 
         self.assertTrue(status == 200)
 
+    def test_pandasize(self):
+        resp    = self.api.latest(df = True)
+        resp2   = self.api.measurements(df = True)
+        resp3   = self.api.measurements(df = True, index = 'utc')
+
+        self.assertTrue(type(resp) == pd.DataFrame)
+        self.assertTrue(type(resp) == pd.DataFrame)
+
+    def test_fetches(self):
+        status, resp = self.api.fetches()
+
+        self.assertTrue(status == 200)
+
+    def test_bad_request(self):
+        endpoint = "http://api.openaq.org/v1/fetch"
+
+        status, resp = self.api._send('PUT')
+
+        self.assertRaises(openaq.exceptions.ApiError)
+
     def test_repr(self):
-        print (self)
+        self.assertTrue(str(self.api) == 'OpenAQ API')
+
 
 if __name__ == '__main__':
     unittest.main()

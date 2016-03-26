@@ -42,16 +42,14 @@ class API(object):
 
         return endpoint
 
-    def _send(self, endpoint, method = 'GET', data = None, **kwargs):
+    def _send(self, endpoint, method = 'GET', **kwargs):
         """Make an API call of any method
 
         :param endpoint: API endpoint
         :param method: API call type. Options are PUT, POST, GET, DELETE
-        :param data: data to send for POST and PUT calls
 
         :type endpoint: string
         :type method: string
-        :type data: dictionary
 
         :returns: (status_code, json_response)
 
@@ -59,9 +57,6 @@ class API(object):
         """
         auth = (self._key, self._pswd)
         url  = self._make_url(endpoint, **kwargs)
-
-        if data:
-            data = json.dumps(data)
 
         if method == 'GET':
             try:
@@ -283,6 +278,7 @@ class OpenAQ(API):
         :param page: Paginate through the results
         :param skip: Number of records to skip.
         :param df: return the results as a pandas DataFrame
+        :param index: if returning as a DataFrame, set index to ('utc', 'local'). The default is local
 
         :type city: string
         :type country: string
@@ -300,6 +296,7 @@ class OpenAQ(API):
         :type page: number
         :type skip: number
         :type df: boolean
+        :type index: string
 
         :return: a dictionary containing the *date*, *parameter*, *value*, *unit*,
             *location*, *country*, *city*, and *coordinates*.
