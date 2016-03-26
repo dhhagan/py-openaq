@@ -4,6 +4,8 @@ import requests
 from pkg_resources import get_distribution
 from .exceptions import ApiError
 
+from .decorators import pandasize
+
 __all__ = ['OpenAQ']
 
 __version__ = get_distribution('py-openaq').version
@@ -87,6 +89,7 @@ class OpenAQ(API):
 
         super(OpenAQ, self).__init__(version = version, baseurl = self._baseurl)
 
+    @pandasize()
     def cities(self, **kwargs):
         """Returns a listing of cities within the platform.
 
@@ -97,11 +100,13 @@ class OpenAQ(API):
         """
         return self._get('cities', **kwargs)
 
+    @pandasize()
     def countries(self, **kwargs):
         """Provides a listing of all countries within the platform
         """
         return self._get('countries', **kwargs)
 
+    @pandasize()
     def latest(self, **kwargs):
         """Provides the latest value of each parameter for each location
 
@@ -121,6 +126,7 @@ class OpenAQ(API):
         """
         return self._get('latest', **kwargs)
 
+    @pandasize()
     def locations(self, **kwargs):
         """Provides metadata about distinct measurement locations
 
@@ -140,6 +146,7 @@ class OpenAQ(API):
         """
         return self._get('locations', **kwargs)
 
+    @pandasize()
     def measurements(self, **kwargs):
         """Provides metadata about distinct measurement locations
 
