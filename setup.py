@@ -3,7 +3,7 @@
 	Written originally by David H Hagan
 	December 2015
 '''
-__version__ = '0.2.0'
+__version__ = '0.3.0'
 
 try:
 	from setuptools import setup
