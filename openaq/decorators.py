@@ -52,9 +52,11 @@ def pandasize():
                         if index == 'utc':
                             data.index = data['date.utc']
                             del data['date.utc']
-                        else:
+                        elif index == 'local':
                             data.index = data['date.local']
                             del data['date.local']
+                        else:
+                            pass
 
                     return data
 
