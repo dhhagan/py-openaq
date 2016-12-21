@@ -34,9 +34,11 @@ class API(object):
 
         extra = []
         for key, value in kwargs.items():
-            if isinstance(value, list):
-                value = ','.join(value)
-            extra.append("{}={}".format(key, value))
+            if isinstance(value, list) or isinstance(value, tuple):
+                #value = ','.join(value)
+                for v in value:
+                    extra.append("{}={}".format(key, v))
+            #extra.append("{}={}".format(key, value))
 
         if len(extra) > 0:
             endpoint = '?'.join([endpoint, '&'.join(extra)])
@@ -95,19 +97,25 @@ class OpenAQ(API):
         """Returns a listing of cities within the platform.
 
         :param country: limit results by a certain country
+        :param limit: limit results in the query. Default is 100. Max is 10000.
+        :param page: paginate through the results. Default is 1.
         :param df: convert the output from json to a pandas DataFrame
+        :param index: if returning as a DataFrame, set index to ('utc', 'local', None). The default is local
 
         :return: dictionary containing the *city*, *country*, *count*, and number of *locations*
 
         :type country: 2-digit ISO code
+        :type limit: number
+        :type page: number
         :type df: boolean
+        :type index: string
 
         :Example:
 
         >>> import openaq
         >>> api = openaq.OpenAQ()
         >>> status, resp = api.cities()
-        >>> resp
+        >>> resp['results']
         [
             {
                 "city": "Amsterdam",
@@ -130,28 +138,38 @@ class OpenAQ(API):
     def countries(self, **kwargs):
         """Returns a listing of all countries within the platform
 
+        :param limit: change the number of results returned. Max is 10000. Default is 100.
+        :param page: paginate through results. Default is 1.
         :param df: return the results as a pandas DataFrame
+        :param index: if returning as a DataFrame, set index to ('utc', 'local', None). The default is local
 
+        :type limit: int
+        :type page: int
         :type df: boolean
+        :type index: string
 
-        :return: dictionary containing the *code*, *name*, and *count*
+        :return: dictionary containing the *code*, *name*, *count*, *cities*, and *locations*.
 
         :Example:
 
         >>> import openaq
         >>> api = openaq.OpenAQ()
         >>> status, resp = api.countries()
-        >>> resp
+        >>> resp['results']
         [
             {
-                "count": 40638,
-                "code": "AU",
-                "name": "Australia"
+                "cities": 174,
+                "code": "AT",
+                "count": 121987,
+                "locations": 174,
+                "name": "Austria"
             },
             {
-                "count": 78681,
-                "code": "BR",
-                "name": "Brazil",
+                "cities": 28,
+                "code": "AU",
+                "count": 1066179,
+                "locations": 28,
+                "name": "Australia",
             },
             ...
         ]
@@ -169,14 +187,26 @@ class OpenAQ(API):
         :param parameter: limit results by a specific parameter. Options include [
                             pm25, pm10, so2, co, no2, o3, bc]
         :param has_geo: filter items that do or do not have geographic information.
+        :param coordinates: center point (`lat`, `long`) used to get measurements within a
+                                certain area. (Ex: coordinates=40.23,34.17)
+        :param radius: radius (in meters) used to get measurements. Must be used with coordinates.
+                        Default value is 2500.
+        :param limit: change the number of results returned. Max is 1000. Default is 100.
+        :param page: paginate through the results.
         :param df: return results as a pandas DataFrame
+        :param index: if returning as a DataFrame, set index to ('utc', 'local', None). The default is local
 
         :type city: string
         :type country: string
         :type location: string
         :type parameter: string
         :type has_geo: boolean
+        :type coordinates: string
+        :type radius: int
+        :type limit: int
+        :type page: int
         :type df: boolean
+        :type index: string
 
         :return: dictionary containing the *location*, *country*, *city*, and number of *measurements*
 
@@ -185,7 +215,7 @@ class OpenAQ(API):
         >>> import openaq
         >>> api = openaq.OpenAQ()
         >>> status, resp = api.latest()
-        >>> resp
+        >>> resp['results']
         [
             {
                 "location": "Punjabi Bagh",
@@ -216,29 +246,49 @@ class OpenAQ(API):
     def locations(self, **kwargs):
         """Provides metadata about distinct measurement locations
 
-        :param city: Limit results by a certain city. Defaults to ``None``.
-        :param country: Limit results by a certain country. Should be a 2-digit
-                        ISO country code. Defaults to ``None``.
-        :param location: Limit results by a city. Defaults to ``None``.
-        :param parameter: Limit results by a specific parameter. Options include [
+        :param city: Limit results by one or more cities. Defaults to ``None``. Can define as a single city
+                        (ex. city = 'Delhi'), a list of cities (ex. city = ['Delhi', 'Mumbai']), or as a tuple
+                        (ex. city = ('Delhi', 'Mumbai')).
+        :param country: Limit results by one or more countries. Should be a 2-digit
+                        ISO country code as a string, a list, or a tuple. See `city` for details.
+        :param location: Limit results by one or more locations.
+        :param parameter: Limit results by one or more parameters. Options include [
                             pm25, pm10, so2, co, no2, o3, bc]
         :param has_geo: Filter items that do or do not have geographic information.
+        :param coordinates: center point (`lat`, `long`) used to get measurements within a
+                                certain area. (Ex: coordinates=40.23,34.17)
+        :param nearest: get the X nearest number of locations to `coordinates`. Must be used
+                        with coordinates. Wins over `radius` if both are present. Will add the
+                        `distance` property to locations.
+        :param radius: radius (in meters) used to get measurements. Must be used with coordinates.
+                        Default value is 2500.
+        :param limit: change the number of results returned. Max is 1000. Default is 100.
+        :param page: paginate through the results.
+        :param df: return results as a pandas DataFrame
+        :param index: if returning as a DataFrame, set index to ('utc', 'local', None). The default is local
 
-        :type city: string
-        :type country: string
-        :type location: string
-        :type parameter: string
+        :type city: string, array, or tuple
+        :type country: string, array, or tuple
+        :type location: string, array, or tuple
+        :type parameter: string, array, or tuple
         :type has_geo: boolean
+        :type coordinates: string
+        :type nearest: int
+        :type radius: int
+        :type limit: int
+        :type page: int
+        :type df: boolean
+        :type index: string
 
-        :return: a dictionary containing the *loction*, *country*, *city*, *count*,
-                    *sourceName*, *firstUpdated*, *lastUpdated*, *parameters*, and *coordinates*
+        :return: a dictionary containing the *location*, *country*, *city*, *count*,
+                    *sourceName*, *sourceNames*, *firstUpdated*, *lastUpdated*, *parameters*, and *coordinates*
 
         :Example:
 
         >>> import openaq
         >>> api = openaq.OpenAQ()
         >>> status, resp = api.locations()
-        >>> resp
+        >>> resp['results']
         [
             {
                 "count": 4242,
@@ -264,33 +314,39 @@ class OpenAQ(API):
 
     @pandasize()
     def measurements(self, **kwargs):
-        """Provides metadata about distinct measurement locations
+        """Provides data about individual measurements
 
         :param city: Limit results by a certain city. Defaults to ``None``.
         :param country: Limit results by a certain country. Should be a 2-digit
                         ISO country code. Defaults to ``None``.
         :param location: Limit results by a city. Defaults to ``None``.
-        :param parameter: Limit results by a specific parameter. Options include [
+        :param parameter: Limit results by one or more parameters. Options include [
                             pm25, pm10, so2, co, no2, o3, bc]
         :param has_geo: Filter items that do or do not have geographic information.
-        :param value_from: Show results above a value threshold.
-        :param value_to: Show results below a value threshold.
-        :param date_from: Show results after a certain date. Format should be ``Y-M-D``
-        :param date_to: Show results before a certain date. Format should be ``Y-M-D``
-        :param sort: The sort order (``asc`` or ``desc``).
+        :param coordinates: center point (`lat`, `long`) used to get measurements within a
+                        certain area. (Ex: coordinates=40.23,34.17)
+        :param radius: radius (in meters) used to get measurements. Must be used with `coordinates`.
+                        Default value is 2500.
+        :param value_from: Show results above a value threshold. Must be used with `parameter`.
+        :param value_to: Show results below a value threshold. Must be used with `parameter`.
+        :param date_from: Show results after a certain date. Format should be ``Y-M-D``.
+        :param date_to: Show results before a certain date. Format should be ``Y-M-D``.
+        :param sort: The sort order (``asc`` or ``desc``). Must be used with `order_by`.
         :param order_by: Field to sort by. Must be used with **sort**.
-        :param include_fields: Include additional fields in the output.
+        :param include_fields: Include additional fields in the output. Allowed values are: *attribution*,
+                            *averagingPeriod*, and *sourceName*.
         :param limit: Change the number of results returned.
         :param page: Paginate through the results
-        :param skip: Number of records to skip.
         :param df: return the results as a pandas DataFrame
-        :param index: if returning as a DataFrame, set index to ('utc', 'local'). The default is local
+        :param index: if returning as a DataFrame, set index to ('utc', 'local', None). The default is local
 
         :type city: string
         :type country: string
         :type location: string
-        :type parameter: string
+        :type parameter: string, array, or tuple
         :type has_geo: boolean
+        :type coordinates: string
+        :type radius: int
         :type value_from: number
         :type value_to: number
         :type date_from: date
@@ -300,19 +356,18 @@ class OpenAQ(API):
         :type include_fields: array
         :type limit: number
         :type page: number
-        :type skip: number
         :type df: boolean
         :type index: string
 
         :return: a dictionary containing the *date*, *parameter*, *value*, *unit*,
-            *location*, *country*, *city*, and *coordinates*.
+            *location*, *country*, *city*, *coordinates*, and *sourceName*.
 
         :Example:
 
         >>> import openaq
         >>> api = openaq.OpenAQ()
         >>> status, resp = api.measurements(city = 'Delhi')
-        >>> resp
+        >>> resp['results']
         {
             "parameter": "Ammonia",
             "date": {
@@ -328,6 +383,13 @@ class OpenAQ(API):
                 "latitude": 43.34,
                 "longitude": 23.04
             },
+            "attribution": {
+                "name": "SINCA",
+                "url": "http://sinca.mma.gob.cl/"
+            },
+            {
+                "name": "Ministerio del Medio Ambiente"
+            }
             ...
         }
         """
@@ -336,6 +398,12 @@ class OpenAQ(API):
     def fetches(self, **kwargs):
         """Provides data about individual fetch operations that are used to populate
         data in the platform.
+
+        :param limit: change the number of results returned. Max is 10000. Default is 100.
+        :param page: paginate through the results. Default is 1.
+
+        :type limit: int
+        :type page: int
 
         :return: dictionary containing the *timeStarted*, *timeEnded*, *count*, and *results*
 
@@ -352,7 +420,8 @@ class OpenAQ(API):
                 "website":
                 "page": 1,
                 "limit": 100,
-                "found": 3
+                "found": 3,
+                "pages": 1
             },
             "results": [
                 {
@@ -381,6 +450,75 @@ class OpenAQ(API):
         }
         """
         return self._get('fetches', **kwargs)
+
+    def parameters(self):
+        """
+        Provides a simple listing of parameters within the platform.
+
+        :return: a dictionary containing the *id*, *name*, *description*, and
+            *preferredUnit*.
+
+        :Example:
+
+        >>> import openaq
+        >>> api = openaq.OpenAQ()
+        >>> status, resp = api.parameters()
+        >>> resp['results']
+        [
+            {
+                "id": "pm25",
+               "name": "PM2.5",
+               "description": "Particulate matter less than 2.5 micrometers in diameter",
+               "preferredUnit": "µg/m³"
+            }
+            ...
+        ]
+        """
+        return self._get('parameters')
+
+    @pandasize()
+    def sources(self, **kwargs):
+        """
+        Provides a list of data sources.
+
+        :param limit: Change the number of results returned.
+        :param page: Paginate through the results
+        :param df: return the results as a pandas DataFrame
+        :param index: if returning as a DataFrame, set index to ('utc', 'local', None). The default is local
+
+        :type limit: number
+        :type page: number
+        :type df: boolean
+        :type index: string
+
+        :return: a dictionary containing the *url*, *adapter*, *name*, *city*,
+            *country*, *description*, *resolution*, *sourceURL*, and *contacts*.
+
+        :Example:
+
+        >>> import openaq
+        >>> api = openaq.OpenAQ()
+        >>> status, resp = api.sources()
+        >>> resp['results']
+        [
+            {
+                "url": "http://airquality.environment.nsw.gov.au/aquisnetnswphp/getPage.php?reportid=2",
+                "adapter": "nsw",
+                "name": "Australia - New South Wales",
+                "city": "",
+                "country": "AU",
+                "description": "Measurements from the Office of Environment & Heritage of the New South Wales government.",
+                "resolution": "1 hr",
+                "sourceURL": "http://www.environment.nsw.gov.au/AQMS/hourlydata.htm",
+                "contacts": [
+                    "olaf@developmentseed.org"
+                ]
+            }
+            ...
+        ]
+        """
+
+        return self._get('sources', **kwargs)
 
     def __repr__(self):
         return "OpenAQ API"

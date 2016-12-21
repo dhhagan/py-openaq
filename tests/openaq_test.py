@@ -47,16 +47,33 @@ class SetupTestCase(unittest.TestCase):
 
         self.assertTrue(status == 200)
 
+    def test_locations_with_params(self):
+        # Test cities as a list
+        status, resp = self.api.locations(
+            city = ['Delhi', 'Mumbai']
+            )
+
+        for r in resp['results']:
+            self.assertTrue(r['city'] in ['Delhi', 'Mumbai'])
+
+        # Test cities as a tuple
+        status, resp = self.api.locations(
+            city = ('Delhi', 'Mumbai')
+        )
+
+        for r in resp['results']:
+            self.assertTrue(r['city'] in ['Delhi', 'Mumbai'])
+
     def test_measurements(self):
         status, resp = self.api.measurements(city = 'Delhi')
 
         self.assertTrue(status == 200)
 
-    def test_measurements_with_params(self):
-        status, resp = self.api.measurements(include_fields = ['location', 'parameter',
-                                'date', 'value'])
+    #def test_measurements_with_params(self):
+    #    status, resp = self.api.measurements(include_fields = ['location', 'parameter',
+    #                            'date', 'value'])
 
-        self.assertTrue(status == 200)
+    #    self.assertTrue(status == 200)
 
     def test_pandasize(self):
         resp    = self.api.latest(df = True)
@@ -83,6 +100,16 @@ class SetupTestCase(unittest.TestCase):
         status, resp = self.api._send('PUT')
 
         self.assertRaises(openaq.exceptions.ApiError)
+
+    def test_parameters(self):
+        status, resp = self.api.parameters()
+
+        self.assertIsNotNone(resp['results'])
+
+    def test_sources(self):
+        status, resp = self.api.sources(limit = 1)
+
+        self.assertIsNotNone(resp['results'])
 
     def test_repr(self):
         self.assertTrue(str(self.api) == 'OpenAQ API')
