@@ -1,5 +1,6 @@
 import json
 import requests
+import math
 
 from pkg_resources import get_distribution
 from .exceptions import ApiError
@@ -59,14 +60,19 @@ class API(object):
         url  = self._make_url(endpoint, **kwargs)
 
         if method == 'GET':
-            try:
-                resp = requests.get(url, auth = auth, headers = self._headers)
-            except Exception as error:
-                raise ApiError(error)
+            resp = requests.get(url, auth = auth, headers = self._headers)
         else:
             raise ApiError("Invalid Method")
 
-        return resp.status_code, resp.json()
+        res = resp.json()
+
+        # Add a 'pages' attribute to the meta data
+        try:
+            res['meta']['pages'] = math.ceil(res['meta']['found'] / res['meta']['limit'])
+        except:
+            pass
+
+        return resp.status_code, res
 
     def _get(self, url, **kwargs):
         return self._send(url, 'GET', **kwargs)

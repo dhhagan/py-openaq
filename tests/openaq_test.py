@@ -12,12 +12,21 @@ class SetupTestCase(unittest.TestCase):
     def test_setup(self):
         self.assertIsInstance(self.api, openaq.OpenAQ)
 
+    def test_incorrect_api_method(self):
+        with self.assertRaises(openaq.exceptions.ApiError):
+            res = self.api._send('cities', method = 'BAD')
+
     def test_cities(self):
         status, resp = self.api.cities(
                         country = 'US'
                         )
 
         self.assertTrue(status == 200)
+
+    def test_add_pages(self):
+        status, resp = self.api.cities( country = 'US' )
+
+        self.assertIsNotNone(resp['meta']['pages'])
 
     def test_countries(self):
         status, resp = self.api.countries()
@@ -53,9 +62,15 @@ class SetupTestCase(unittest.TestCase):
         resp    = self.api.latest(df = True)
         resp2   = self.api.measurements(df = True)
         resp3   = self.api.measurements(df = True, index = 'utc')
+        resp4   = self.api.measurements(df = True, index = None)
 
-        self.assertTrue(type(resp) == pd.DataFrame)
-        self.assertTrue(type(resp) == pd.DataFrame)
+        self.assertIsInstance(resp, pd.DataFrame)
+        self.assertIsInstance(resp2, pd.DataFrame)
+        self.assertIsInstance(resp3, pd.DataFrame)
+        self.assertIsInstance(resp4, pd.DataFrame)
+
+        # make sure the index for resp4 are ints
+        self.assertTrue(type(resp4.index.values[0]), int)
 
     def test_fetches(self):
         status, resp = self.api.fetches()

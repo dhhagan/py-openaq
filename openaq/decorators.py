@@ -38,10 +38,7 @@ def pandasize():
 
                     # If there are any datetimes, make them datetimes!
                     for each in [i for i in data.columns if 'date' in i]:
-                        try:
-                            data[each] = pd.to_datetime(data[each])
-                        except:
-                            pass
+                        data[each] = pd.to_datetime(data[each])
 
                     if f.__name__ in ('latest'):
                         data.index = data['lastUpdated']
