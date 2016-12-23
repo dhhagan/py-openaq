@@ -38,7 +38,8 @@ class API(object):
                 #value = ','.join(value)
                 for v in value:
                     extra.append("{}={}".format(key, v))
-            #extra.append("{}={}".format(key, value))
+            else:
+                extra.append("{}={}".format(key, value))
 
         if len(extra) > 0:
             endpoint = '?'.join([endpoint, '&'.join(extra)])
@@ -469,7 +470,7 @@ class OpenAQ(API):
                 "id": "pm25",
                "name": "PM2.5",
                "description": "Particulate matter less than 2.5 micrometers in diameter",
-               "preferredUnit": "µg/m³"
+               "preferredUnit": "ug/m3"
             }
             ...
         ]
