@@ -15,7 +15,7 @@ You can install this package in the usual way using ``pip``::
 
     pip install py-openaq
 
-You can upgrade with:
+You can upgrade this package using ``pip`` as well::
 
     pip install py-openaq --upgrade
 
@@ -23,10 +23,10 @@ You can upgrade with:
 Requirements
 ------------
 
-The only requirement for this package is ``requests``. In the future (v1),
-``pandas`` will be recommended and significant features will depend on it.
-
-**UPDATE**: As of v0.3.0, `pandas` support has been added, but is not a requirement.
+The only requirement for this package is ``requests``. If you are not limited
+by memory or space, I would highly recommend installing ``pandas`` and ``seaborn``
+which will enable you to use the new visualization helpers that were released with
+version 1.
 
 Current Limitations
 -------------------
@@ -72,20 +72,17 @@ The json response will look something like the following with both ``meta`` and 
 
 Coupling with Pandas DataFrame
 ------------------------------
-Pandas is awesome. If you are working with data, you should be using DataFrames. To
-easily dump your json response into a DataFrame::
+The `pandasize` decorator was added to easily allow you to read in data directly
+to a DataFrame. To do so, simply add the argument `df = True` to your request.
 
-    from pandas.io.json import json_normalize
-
-    df = json_normalize(resp)
-
-As of v0.3.0, an optional keyword argument (`df`) has been added to the following API methods:
+The following API methods allow you to return your data as a DataFrame:
 
   * cities
   * countries
   * latest
   * locations
   * measurements
+  * sources
 
 By using this keyword argument, the results of the API call will return a pandas DataFrame rather than a json response.
 
@@ -101,4 +98,10 @@ API Reference
 
 .. module:: openaq
 .. autoclass:: OpenAQ
-   :members: cities, countries, latest, locations, measurements, fetches
+   :members: cities, countries, latest, locations, measurements, fetches,
+                parameters, sources
+
+Visualization Reference
+=======================
+.. module:: openaq.viz
+.. autofunction:: tsplot

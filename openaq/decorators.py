@@ -1,11 +1,26 @@
 from functools import wraps
+import warnings
+from unittest import SkipTest
 
 try:
     import pandas as pd
 
-    has_pandas = True
-except:
-    has_pandas = False
+    _no_pandas = False
+except ImportError:
+    _no_pandas = True
+
+def skipif(skipcondition, msg = ""):
+    """
+    """
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            if skipcondition == True:
+                raise SkipTest(msg)
+
+            return f(*args, **kwargs)
+        return decorated_function
+    return  decorator
 
 def pandasize():
     def decorator(f):
@@ -14,7 +29,7 @@ def pandasize():
             df      = kwargs.get('df', False)
             index   = kwargs.get('index', 'local')
 
-            if df == True and has_pandas == True:
+            if df == True and _no_pandas == False:
                 status, resp = f( *args, **kwargs )
                 if status == 200:
                     resp = resp['results']
@@ -38,10 +53,7 @@ def pandasize():
 
                     # If there are any datetimes, make them datetimes!
                     for each in [i for i in data.columns if 'date' in i]:
-                        try:
-                            data[each] = pd.to_datetime(data[each])
-                        except:
-                            pass
+                        data[each] = pd.to_datetime(data[each])
 
                     if f.__name__ in ('latest'):
                         data.index = data['lastUpdated']
@@ -52,9 +64,11 @@ def pandasize():
                         if index == 'utc':
                             data.index = data['date.utc']
                             del data['date.utc']
-                        else:
+                        elif index == 'local':
                             data.index = data['date.local']
                             del data['date.local']
+                        else:
+                            pass
 
                     return data
 
