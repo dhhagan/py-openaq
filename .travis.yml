@@ -2,8 +2,6 @@ language: python
 python:
   - "2.7"
   - "3.5"
-  - "3.5-dev" # 3.5 development branch
-  - "nightly" # currently points to 3.6-dev
 
 before_script: # configure a headless display to test plot generation
   - "export DISPLAY=:99.0"
