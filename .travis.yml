@@ -1,8 +1,6 @@
 language: python
 python:
   - "2.7"
-  - "3.3"
-  - "3.4"
   - "3.5"
   - "3.5-dev" # 3.5 development branch
   - "nightly" # currently points to 3.6-dev
@@ -12,11 +10,13 @@ before_script: # configure a headless display to test plot generation
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
 
+before_install:
+  - sudo apt-get install -qq python-numpy python-scipy python-matplotlib
+
 install:
   - "pip install requests"
   - "pip install coverage"
   - "pip install coveralls"
-  - "pip install matplotlib"
   - "pip install pandas"
   - "pip install seaborn"
 
