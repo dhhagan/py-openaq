@@ -1,6 +1,7 @@
 from functools import wraps
 import warnings
 from unittest import SkipTest
+from .utils import to_naive_timestamp
 
 try:
     import pandas as pd
@@ -53,7 +54,10 @@ def pandasize():
 
                     # If there are any datetimes, make them datetimes!
                     for each in [i for i in data.columns if 'date' in i]:
-                        data[each] = pd.to_datetime(data[each])
+                        if 'local' in each:
+                            data[each] = pd.to_datetime(data[each].apply(lambda x: to_naive_timestamp(x)))
+                        else:
+                            data[each] = pd.to_datetime(data[each])
 
                     if f.__name__ in ('latest'):
                         data.index = data['lastUpdated']

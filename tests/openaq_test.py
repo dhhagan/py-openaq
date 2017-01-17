@@ -111,6 +111,13 @@ class SetupTestCase(unittest.TestCase):
 
         self.assertIsNotNone(resp['results'])
 
+    def test_local_time(self):
+        status, resp = self.api.measurements(city = 'Hilo')
+
+        self.assertTrue(status == 200)
+
+        # Make sure that the localtime and utc time are 10 hours different
+
     def test_repr(self):
         self.assertTrue(str(self.api) == 'OpenAQ API')
 
