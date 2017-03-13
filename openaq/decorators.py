@@ -1,21 +1,37 @@
 from functools import wraps
+import warnings
+from unittest import SkipTest
+from .utils import to_naive_timestamp
 
 try:
     import pandas as pd
 
-    has_pandas = True
+    _no_pandas = False
 except:
-    has_pandas = False
+    _no_pandas = True
+
+def skipif(skipcondition, msg = ""):
+    """
+    """
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            if skipcondition == True:
+                raise SkipTest(msg)
+
+            return f(*args, **kwargs)
+        return decorated_function
+    return  decorator
 
 def pandasize():
     def decorator(f):
         @wraps(f)
-        def decorated_function( *args, **kwargs ):
-            df      = kwargs.get('df', False)
-            index   = kwargs.get('index', 'local')
+        def decorated_function(*args, **kwargs):
+            df = kwargs.get('df', False)
+            index = kwargs.get('index', 'local')
 
-            if df == True and has_pandas == True:
-                status, resp = f( *args, **kwargs )
+            if df == True and _no_pandas == False:
+                status, resp = f(*args, **kwargs)
                 if status == 200:
                     resp = resp['results']
 
@@ -24,8 +40,8 @@ def pandasize():
                         for i in resp:
                             for m in i['measurements']:
                                 tmp = m
-                                tmp['country']  = i['country']
-                                tmp['city']     = i['city']
+                                tmp['country'] = i['country']
+                                tmp['city'] = i['city']
                                 tmp['location'] = i['location']
 
                                 tmp['lastUpdated'] = pd.to_datetime(tmp['lastUpdated'])
@@ -38,10 +54,10 @@ def pandasize():
 
                     # If there are any datetimes, make them datetimes!
                     for each in [i for i in data.columns if 'date' in i]:
-                        try:
+                        if 'local' in each:
+                            data[each] = pd.to_datetime(data[each].apply(lambda x: to_naive_timestamp(x)))
+                        else:
                             data[each] = pd.to_datetime(data[each])
-                        except:
-                            pass
 
                     if f.__name__ in ('latest'):
                         data.index = data['lastUpdated']
