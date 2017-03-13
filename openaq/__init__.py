@@ -23,11 +23,8 @@ class API(object):
 
     def _make_url(self, endpoint, **kwargs):
         """Internal method to create a url from an endpoint.
-
         :param endpoint: Endpoint for an API call
-
         :type endpoint: string
-
         :returns: url
         """
         endpoint = "{}/{}/{}".format(self._baseurl, self._version, endpoint)
@@ -63,7 +60,7 @@ class API(object):
         url  = self._make_url(endpoint, **kwargs)
 
         if method == 'GET':
-            resp = requests.get(url, auth = auth, headers = self._headers)
+            resp = requests.get(url, auth=auth, headers=self._headers)
         else:
             raise ApiError("Invalid Method")
 
@@ -91,7 +88,7 @@ class OpenAQ(API):
     def __init__(self, version = 'v1', **kwargs):
         self._baseurl = 'https://api.openaq.org'
 
-        super(OpenAQ, self).__init__(version = version, baseurl = self._baseurl)
+        super(OpenAQ, self).__init__(version=version, baseurl=self._baseurl)
 
     @pandasize()
     def cities(self, **kwargs):
@@ -452,10 +449,10 @@ class OpenAQ(API):
         """
         return self._get('fetches', **kwargs)
 
-    def parameters(self):
+    @pandasize()
+    def parameters(self, **kwargs):
         """
         Provides a simple listing of parameters within the platform.
-
         :return: a dictionary containing the *id*, *name*, *description*, and
             *preferredUnit*.
 

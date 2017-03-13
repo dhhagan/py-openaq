@@ -73,16 +73,13 @@ rc_tsplot = {
 }
 
 @skipif(_no_sns)
-def tsplot(data, time = None, ax = None, parameter = None, rs = '1h',
-           locations = None, plot_kws = {}, fmt_axis = True, **kwargs):
+def tsplot(data, time=None, ax=None, parameter=None, rs='1h',
+           locations=None, plot_kws={}, fmt_axis=True, **kwargs):
     """
-    If there are multiple locations && multiple params, issue a warning!
-
     :param data: dataframe with data
     :param time: column name with time. Defaults to index.
     :param ax: Plot on ax if you would like.
     :param parameter: string with parameter to plot. Can only plot 1 at a time.
-
     """
     assert isinstance(data, pd.DataFrame), "`data` must be a pandas dataframe"
     assert parameter in [None, 'pm25', 'pm10', 'o3', 'no2', 'bc', 'co', 'so2'], "Invalid parameter"

@@ -3,7 +3,7 @@
 	Written originally by David H Hagan
 	December 2015
 '''
-__version__ = '1.0.1'
+__version__ = '1.0.2'
 
 try:
 	from setuptools import setup
@@ -31,6 +31,7 @@ setup(
 		'Programming Language :: Python :: 3.3',
 		'Programming Language :: Python :: 3.4',
 		'Programming Language :: Python :: 3.5',
+		'Programming Language :: Python :: 3.6',
 		'Topic :: Scientific/Engineering :: Atmospheric Science',
 		'Topic :: Software Development',
 		'Topic :: Software Development :: Libraries :: Python Modules'

@@ -26,12 +26,13 @@ def skipif(skipcondition, msg = ""):
 def pandasize():
     def decorator(f):
         @wraps(f)
-        def decorated_function( *args, **kwargs ):
-            df      = kwargs.get('df', False)
-            index   = kwargs.get('index', 'local')
+        def decorated_function(*args, **kwargs):
+            df = kwargs.get('df', False)
+            index = kwargs.get('index', 'local')
 
             if df == True and _no_pandas == False:
-                status, resp = f( *args, **kwargs )
+                status, resp = f(*args, **kwargs)
+                
                 if status == 200:
                     resp = resp['results']
 
@@ -40,8 +41,8 @@ def pandasize():
                         for i in resp:
                             for m in i['measurements']:
                                 tmp = m
-                                tmp['country']  = i['country']
-                                tmp['city']     = i['city']
+                                tmp['country'] = i['country']
+                                tmp['city'] = i['city']
                                 tmp['location'] = i['location']
 
                                 tmp['lastUpdated'] = pd.to_datetime(tmp['lastUpdated'])
