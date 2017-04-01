@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import json
 import requests
 import math
@@ -88,7 +91,7 @@ class OpenAQ(API):
 
     :type version: string
     """
-    def __init__(self, version = 'v1', **kwargs):
+    def __init__(self, version='v1', **kwargs):
         self._baseurl = 'https://api.openaq.org'
 
         super(OpenAQ, self).__init__(version = version, baseurl = self._baseurl)
