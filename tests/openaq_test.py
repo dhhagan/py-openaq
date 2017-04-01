@@ -76,10 +76,10 @@ class SetupTestCase(unittest.TestCase):
     #    self.assertTrue(status == 200)
 
     def test_pandasize(self):
-        resp    = self.api.latest(df = True)
-        resp2   = self.api.measurements(df = True)
-        resp3   = self.api.measurements(df = True, index = 'utc')
-        resp4   = self.api.measurements(df = True, index = None)
+        resp    = self.api.latest(df=True)
+        resp2   = self.api.measurements(df=True)
+        resp3   = self.api.measurements(df=True, index='utc')
+        resp4   = self.api.measurements(df=True, index=None)
 
         self.assertIsInstance(resp, pd.DataFrame)
         self.assertIsInstance(resp2, pd.DataFrame)

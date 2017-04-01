@@ -1,7 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from functools import wraps
 import warnings
 from unittest import SkipTest
-from .utils import to_naive_timestamp
+from .utils import to_naive_timestamp, clean_encodings
 
 try:
     import pandas as pd
@@ -73,6 +76,10 @@ def pandasize():
                             del data['date.local']
                         else:
                             pass
+
+                    # Clean up encodings
+                    if 'unit' in data.columns:
+                        data['unit'] = data['unit'].apply(clean_encodings)
 
                     return data
 
