@@ -1,8 +1,9 @@
 
 .. _hawaii_ts_plot:
 
-Hawaii SO2 Timeseries
-=====================
+Hawai'i SO2 Timeseries
+======================
+
 
 .. image:: _images/hawaii_ts_plot.png
 

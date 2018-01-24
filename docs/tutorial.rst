@@ -7,3 +7,4 @@ py-openaq Tutorial
   :maxdepth: 2
 
   tutorial/api
+  tutorial/delhi

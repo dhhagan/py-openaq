@@ -29,19 +29,19 @@ def tsindex(ax):
         ax.xaxis.set_minor_locator( dates.HourLocator() )
         ax.xaxis.set_minor_formatter( dates.DateFormatter(""))
 
-        ax.xaxis.set_major_locator( dates.HourLocator( interval = 3))
+        ax.xaxis.set_major_locator( dates.HourLocator( interval=3))
         ax.xaxis.set_major_formatter( dates.DateFormatter("%-I %p"))
     elif dt <= 7.:      # less than one week
         ax.xaxis.set_minor_locator( dates.DayLocator())
         ax.xaxis.set_minor_formatter( dates.DateFormatter("%d"))
 
-        ax.xaxis.set_major_locator( dates.DayLocator( bymonthday = [1, 8, 15, 22]) )
+        ax.xaxis.set_major_locator( dates.DayLocator( bymonthday=[1, 8, 15, 22]) )
         ax.xaxis.set_major_formatter( dates.DateFormatter("\n%b\n%Y") )
     elif dt <= 14.:     # less than two weeks
         ax.xaxis.set_minor_locator( dates.DayLocator())
         ax.xaxis.set_minor_formatter( dates.DateFormatter("%d"))
 
-        ax.xaxis.set_major_locator( dates.DayLocator( bymonthday = [1, 15]) )
+        ax.xaxis.set_major_locator( dates.DayLocator( bymonthday=[1, 15]) )
         ax.xaxis.set_major_formatter( dates.DateFormatter("\n%b\n%Y") )
     elif dt <= 28.:     # less than four weeks
         ax.xaxis.set_minor_locator( dates.DayLocator())
@@ -50,16 +50,16 @@ def tsindex(ax):
         ax.xaxis.set_major_locator( dates.MonthLocator() )
         ax.xaxis.set_major_formatter( dates.DateFormatter("\n%b\n%Y") )
     elif dt <= 4 * 30.: # less than four months
-        ax.xaxis.set_minor_locator( dates.DayLocator( bymonthday = [1, 7, 14, 21] ))
+        ax.xaxis.set_minor_locator( dates.DayLocator( bymonthday=[1, 7, 14, 21] ))
         ax.xaxis.set_minor_formatter( dates.DateFormatter("%d"))
 
         ax.xaxis.set_major_locator( dates.MonthLocator())
         ax.xaxis.set_major_formatter( dates.DateFormatter("\n%b\n%Y") )
     else:
-        ax.xaxis.set_minor_locator( dates.MonthLocator(interval = 2) )
+        ax.xaxis.set_minor_locator( dates.MonthLocator(interval=2) )
         ax.xaxis.set_minor_formatter( dates.DateFormatter("%b"))
 
-        ax.xaxis.set_major_locator( dates.MonthLocator(bymonth = [1]) )
+        ax.xaxis.set_major_locator( dates.MonthLocator(bymonth=[1]) )
         ax.xaxis.set_major_formatter( dates.DateFormatter("\n%Y"))
 
 
@@ -73,13 +73,20 @@ rc_tsplot = {
 }
 
 @skipif(_no_sns)
-def tsplot(data, time=None, ax=None, parameter=None, rs='1h',
+def tsplot(data, time_col=None, ax=None, parameter=None, rs='1h',
            locations=None, plot_kws={}, fmt_axis=True, **kwargs):
-    """
+    """Plot a timeseries.
+
     :param data: dataframe with data
-    :param time: column name with time. Defaults to index.
+    :param time_col: column name with time. Defaults to the current index.
     :param ax: Plot on ax if you would like.
     :param parameter: string with parameter to plot. Can only plot 1 at a time.
+
+    :type data: pd.DataFrame
+    :type time_col: string
+    :type ax: matplotlib axis
+    :type param: string
+
     """
     assert isinstance(data, pd.DataFrame), "`data` must be a pandas dataframe"
     assert parameter in [None, 'pm25', 'pm10', 'o3', 'no2', 'bc', 'co', 'so2'], "Invalid parameter"
@@ -94,11 +101,11 @@ def tsplot(data, time=None, ax=None, parameter=None, rs='1h',
         ax = plt.gca()
 
     # Deal with ts index issues
-    if data.index.name is not time:
-        try:
-            data.index = data[time]
-        except:
-            if not isinstance(data.index, pd.tseries.index.DatetimeIndex):
+    if data.index.name is not time_col:
+        if time_col is not None:
+            data.index = data[time_col]
+        else:
+            if not isinstance(data.index, pd.DatetimeIndex):
                 data.index = data['date.local']
 
     data.index.name = 'index'
@@ -114,7 +121,7 @@ def tsplot(data, time=None, ax=None, parameter=None, rs='1h',
         if name in locations or locations[0] is None:
             _y = group.resample(rs).mean()
 
-            ax.plot(_y.value, label = name)
+            ax.plot(_y.value, label=name)
 
     ax.set_ylabel(parameter)
     ax.legend( loc = 'best' )

@@ -1,10 +1,11 @@
 """
-Hawaii SO2 Timeseries
-=====================
+Hawai'i SO2 Timeseries
+======================
 _thumb: .4, .4
 """
 import seaborn as sns
 import openaq
+
 sns.set(style="ticks")
 
 api = openaq.OpenAQ()

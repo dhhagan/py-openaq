@@ -9,7 +9,7 @@ from .decorators import pandasize
 
 __all__ = ['OpenAQ']
 
-__version__ = get_distribution('py-openaq').version
+__version__ = "1.1.0"
 
 class API(object):
     """Generic API wrapper object.
@@ -43,7 +43,7 @@ class API(object):
 
         return endpoint
 
-    def _send(self, endpoint, method = 'GET', **kwargs):
+    def _send(self, endpoint, method='GET', **kwargs):
         """Make an API call of any method
 
         :param endpoint: API endpoint
@@ -64,6 +64,9 @@ class API(object):
         else:
             raise ApiError("Invalid Method")
 
+        if resp.status_code != 200:
+            raise ApiError("A bad request was made: {}".format(resp.status_code))
+
         res = resp.json()
 
         # Add a 'pages' attribute to the meta data
@@ -80,12 +83,17 @@ class API(object):
 class OpenAQ(API):
     """Create an instance of the OpenAQ API
 
-    :param version: API version.
-    :param kwargs: API options.
-
-    :type version: string
     """
-    def __init__(self, version = 'v1', **kwargs):
+    def __init__(self, version='v1', **kwargs):
+        """Initialize the OpenAQ instance.
+
+        :param version: API version.
+        :param kwargs: API options.
+
+        :type version: string
+        :type kwargs: dictionary
+
+        """
         self._baseurl = 'https://api.openaq.org'
 
         super(OpenAQ, self).__init__(version=version, baseurl=self._baseurl)
@@ -97,15 +105,20 @@ class OpenAQ(API):
         :param country: limit results by a certain country
         :param limit: limit results in the query. Default is 100. Max is 10000.
         :param page: paginate through the results. Default is 1.
+        :param order_by: order by one or more fields (ex. order_by=['country', 'locations']). Default value is 'country'
+        :param sort: define the sort order for one or more fields (ex. sort='desc')
         :param df: convert the output from json to a pandas DataFrame
-        :param index: if returning as a DataFrame, set index to ('utc', 'local', None). The default is local
+        :param index: if returning as a DataFrame, set index to ('utc', 'local', None). The default is 'local'
 
         :return: dictionary containing the *city*, *country*, *count*, and number of *locations*
 
         :type country: 2-digit ISO code
         :type limit: number
+        :type order_by: string or list of strings
+        :type sort: string
         :type page: number
-        :type df: boolean
+        :type country: string or array of strings
+        :type df: bool
         :type index: string
 
         :Example:
@@ -136,17 +149,21 @@ class OpenAQ(API):
     def countries(self, **kwargs):
         """Returns a listing of all countries within the platform
 
+        :param order_by: order by one or more fields (ex. order_by=['cities', 'locations']). Default value is 'country'
+        :param sort: define the sort order for one or more fields (ex. sort='desc')
         :param limit: change the number of results returned. Max is 10000. Default is 100.
         :param page: paginate through results. Default is 1.
         :param df: return the results as a pandas DataFrame
         :param index: if returning as a DataFrame, set index to ('utc', 'local', None). The default is local
 
+        :type order_by: string or list
+        :type sort: string
         :type limit: int
         :type page: int
-        :type df: boolean
+        :type df: bool
         :type index: string
 
-        :return: dictionary containing the *code*, *name*, *count*, *cities*, and *locations*.
+        :return: dictionary containing the *code*, *name*, *count*, *cities*, and number of *locations*.
 
         :Example:
 
@@ -189,7 +206,7 @@ class OpenAQ(API):
                                 certain area. (Ex: coordinates=40.23,34.17)
         :param radius: radius (in meters) used to get measurements. Must be used with coordinates.
                         Default value is 2500.
-        :param limit: change the number of results returned. Max is 1000. Default is 100.
+        :param limit: change the number of results returned. Max is 10000. Default is 100.
         :param page: paginate through the results.
         :param df: return results as a pandas DataFrame
         :param index: if returning as a DataFrame, set index to ('utc', 'local', None). The default is local
@@ -198,12 +215,12 @@ class OpenAQ(API):
         :type country: string
         :type location: string
         :type parameter: string
-        :type has_geo: boolean
+        :type has_geo: bool
         :type coordinates: string
         :type radius: int
         :type limit: int
         :type page: int
-        :type df: boolean
+        :type df: bool
         :type index: string
 
         :return: dictionary containing the *location*, *country*, *city*, and number of *measurements*
@@ -245,8 +262,8 @@ class OpenAQ(API):
         """Provides metadata about distinct measurement locations
 
         :param city: Limit results by one or more cities. Defaults to ``None``. Can define as a single city
-                        (ex. city = 'Delhi'), a list of cities (ex. city = ['Delhi', 'Mumbai']), or as a tuple
-                        (ex. city = ('Delhi', 'Mumbai')).
+                        (ex. city='Delhi'), a list of cities (ex. city=['Delhi', 'Mumbai']), or as a tuple
+                        (ex. city=('Delhi', 'Mumbai')).
         :param country: Limit results by one or more countries. Should be a 2-digit
                         ISO country code as a string, a list, or a tuple. See `city` for details.
         :param location: Limit results by one or more locations.
@@ -260,7 +277,9 @@ class OpenAQ(API):
                         `distance` property to locations.
         :param radius: radius (in meters) used to get measurements. Must be used with coordinates.
                         Default value is 2500.
-        :param limit: change the number of results returned. Max is 1000. Default is 100.
+        :param order_by: order by one or more fields (ex. order_by=['country', 'count']). Default value is 'location'
+        :param sort: define the sort order for one or more fields (ex. sort='desc')
+        :param limit: change the number of results returned. Max is 10000. Default is 100.
         :param page: paginate through the results.
         :param df: return results as a pandas DataFrame
         :param index: if returning as a DataFrame, set index to ('utc', 'local', None). The default is local
@@ -269,16 +288,18 @@ class OpenAQ(API):
         :type country: string, array, or tuple
         :type location: string, array, or tuple
         :type parameter: string, array, or tuple
-        :type has_geo: boolean
+        :type has_geo: bool
         :type coordinates: string
         :type nearest: int
         :type radius: int
+        :type order_by: string or list
+        :type sort: string
         :type limit: int
         :type page: int
-        :type df: boolean
+        :type df: bool
         :type index: string
 
-        :return: a dictionary containing the *location*, *country*, *city*, *count*,
+        :return: a dictionary containing the *location*, *country*, *city*, *count*, *distance*,
                     *sourceName*, *sourceNames*, *firstUpdated*, *lastUpdated*, *parameters*, and *coordinates*
 
         :Example:
@@ -333,7 +354,7 @@ class OpenAQ(API):
         :param order_by: Field to sort by. Must be used with **sort**.
         :param include_fields: Include additional fields in the output. Allowed values are: *attribution*,
                             *averagingPeriod*, and *sourceName*.
-        :param limit: Change the number of results returned.
+        :param limit: Change the number of results returned. Max is 10000 and default is 100.
         :param page: Paginate through the results
         :param df: return the results as a pandas DataFrame
         :param index: if returning as a DataFrame, set index to ('utc', 'local', None). The default is local
@@ -342,7 +363,7 @@ class OpenAQ(API):
         :type country: string
         :type location: string
         :type parameter: string, array, or tuple
-        :type has_geo: boolean
+        :type has_geo: bool
         :type coordinates: string
         :type radius: int
         :type value_from: number
@@ -354,7 +375,7 @@ class OpenAQ(API):
         :type include_fields: array
         :type limit: number
         :type page: number
-        :type df: boolean
+        :type df: bool
         :type index: string
 
         :return: a dictionary containing the *date*, *parameter*, *value*, *unit*,
@@ -397,9 +418,13 @@ class OpenAQ(API):
         """Provides data about individual fetch operations that are used to populate
         data in the platform.
 
+        :param order_by: order by one or more fields (ex. order_by=['timeEnded', 'count']). Default value is 'country'
+        :param sort: define the sort order for one or more fields (ex. sort='desc')
         :param limit: change the number of results returned. Max is 10000. Default is 100.
         :param page: paginate through the results. Default is 1.
 
+        :type order_by: string or list
+        :type sort: string
         :type limit: int
         :type page: int
 
@@ -453,6 +478,13 @@ class OpenAQ(API):
     def parameters(self, **kwargs):
         """
         Provides a simple listing of parameters within the platform.
+
+        :param order_by: order by one or more fields (ex. order_by=['preferredUnit', 'id']). Default value is 'country'
+        :param sort: define the sort order for one or more fields (ex. sort='desc')
+
+        :type order_by: string or list
+        :type sort: string
+
         :return: a dictionary containing the *id*, *name*, *description*, and
             *preferredUnit*.
 
@@ -472,13 +504,15 @@ class OpenAQ(API):
             ...
         ]
         """
-        return self._get('parameters')
+        return self._get('parameters', **kwargs)
 
     @pandasize()
     def sources(self, **kwargs):
         """
         Provides a list of data sources.
 
+        :param order_by: order by one or more fields (ex. order_by=['active', 'country']). Default value is 'country'
+        :param sort: define the sort order for one or more fields (ex. sort='desc')
         :param limit: Change the number of results returned.
         :param page: Paginate through the results
         :param df: return the results as a pandas DataFrame
@@ -486,11 +520,13 @@ class OpenAQ(API):
 
         :type limit: number
         :type page: number
-        :type df: boolean
+        :type df: bool
         :type index: string
+        :type order_by: string or list
+        :type sort: string
 
         :return: a dictionary containing the *url*, *adapter*, *name*, *city*,
-            *country*, *description*, *resolution*, *sourceURL*, and *contacts*.
+            *country*, *description*, *resolution*, *sourceURL*, *contacts*, and *active*.
 
         :Example:
 

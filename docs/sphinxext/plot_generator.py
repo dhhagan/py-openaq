@@ -33,6 +33,7 @@ RST_TEMPLATE = """
 .. _{sphinx_tag}:
 
 {docstring}
+
 .. image:: {img_file}
 
 **Python source code:** :download:`[download source: {fname}]<{fname}>`
@@ -113,7 +114,7 @@ Example gallery
 
 
 def create_thumbnail(infile, thumbfile,
-                     width=300, height=300,
+                     width=275, height=275,
                      cx=0.5, cy=0.5, border=4):
     baseout, extout = op.splitext(thumbfile)
 
@@ -123,7 +124,9 @@ def create_thumbnail(infile, thumbfile,
     y0 = int(cy * rows - .5 * height)
     xslice = slice(x0, x0 + width)
     yslice = slice(y0, y0 + height)
+
     thumb = im[yslice, xslice]
+    #thumb = im
     thumb[:border, :, :3] = thumb[-border:, :, :3] = 0
     thumb[:, :border, :3] = thumb[:, -border:, :3] = 0
 
@@ -157,7 +160,8 @@ class ExampleGenerator(object):
 
         # Only actually run it if the output RST file doesn't
         # exist or it was modified less recently than the example
-        if (not op.exists(outfilename) or (op.getmtime(outfilename) < op.getmtime(filename))):
+        if (not op.exists(outfilename) \
+            or (op.getmtime(outfilename) < op.getmtime(filename))):
             self.exec_file()
         else:
             print("skipping {0}".format(self.filename))
@@ -263,6 +267,7 @@ class ExampleGenerator(object):
         pngfile = op.join(self.target_dir, self.pngfilename)
         thumbfile = op.join("example_thumbs", self.thumbfilename)
         self.html = "<img src=../%s>" % self.pngfilename
+
         fig.savefig(pngfile, dpi=75, bbox_inches="tight")
 
         cx, cy = self.thumbloc

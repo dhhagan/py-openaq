@@ -67,7 +67,7 @@ py-openaq: open air quality data
        <br>
 
 
-       ``py-openaq`` provides an easy-to-use interface for the OpenAQ API.
+       **py-openaq** provides an easy-to-use interface for the OpenAQ API.
 
 
 

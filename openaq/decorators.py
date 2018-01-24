@@ -27,12 +27,12 @@ def pandasize():
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            df = kwargs.get('df', False)
-            index = kwargs.get('index', 'local')
+            df = kwargs.pop('df', False)
+            index = kwargs.pop('index', 'local')
 
             if df == True and _no_pandas == False:
                 status, resp = f(*args, **kwargs)
-                
+
                 if status == 200:
                     resp = resp['results']
 

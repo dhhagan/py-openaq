@@ -42,6 +42,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
+    'sphinx.ext.autosummary',
     'sphinx.ext.githubpages',
     'matplotlib.sphinxext.plot_directive',
     'plot_generator',
@@ -50,6 +51,7 @@ extensions = [
     'ipython_console_highlighting'
 ]
 
+autosummary_generate = True
 numpydoc_show_class_members = False
 
 plot_include_source = True
@@ -113,7 +115,7 @@ html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 
 html_theme_options = {
     'source_link_position': 'footer',
-    'bootswatch_theme': 'flatly',
+    'bootswatch_theme': 'paper',
     'navbar_sidebarrel': False,
     'bootstrap_version': "3",
     'navbar_links': [
