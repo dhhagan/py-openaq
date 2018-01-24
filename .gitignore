@@ -6,6 +6,8 @@ __pycache__/
 _build
 _templates
 
+secret_readme.md
+
 # C extensions
 *.so
 
