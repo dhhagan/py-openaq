@@ -12,15 +12,11 @@ class SetupTestCase(unittest.TestCase):
         pass
 
     def test_mass_to_mix(self):
-        mix = mass_to_mix(value=1., param='co', unit='ppb')
+        mix = mass_to_mix(value=1.145, param='co', unit='ppb')
 
-        self.assertEqual(mix, 1.145)
+        self.assertEqual(mix, 1.)
 
         # Test ppm
-        mix = mass_to_mix(value=1000., param='co', unit='ppm')
+        mix = mass_to_mix(value=1145, param='co', unit='ppm')
 
-        self.assertEqual(mix, 1.145)
-
-    def test_raise_exception(self):
-        with self.assertRaises(Exception):
-            val = openaq.utils.mass_to_mix(1, param='h2o2')
+        self.assertEqual(mix, 1)

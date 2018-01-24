@@ -10,6 +10,15 @@ def to_naive_timestamp(timestamp):
     """
     return dateutil.parser.parse(timestamp).replace(tzinfo=None).isoformat()
 
+def clean_encodings(unit):
+    if unit not in ('ppm', 'ppb', 'ppt', 'ugm3'):
+        unit = unit.encode('utf-8')
+
+        if unit == '\xc2\xb5g/m\xc2\xb3':
+            unit = 'ugm3'
+
+    return unit
+
 def mass_to_mix(value, param, unit='ppb', **kwargs):
     """Convert units from ug/m3 to ppb or ppm. The conversion assumes an ambient
     pressure of 1 atmosphere and ambient temperature of 25 degC.
