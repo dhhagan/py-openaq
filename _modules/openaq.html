@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>openaq &#8212; py-openaq 1.1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          py-openaq</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.1.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../tutorial.html">Tutorial</a></li>
+                <li><a href="../examples/index.html">Gallery</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Getting Started and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">py-openaq Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Example gallery</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for openaq</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="k">import</span> <span class="n">get_distribution</span>
+<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="k">import</span> <span class="n">ApiError</span>
+
+<span class="kn">from</span> <span class="nn">.decorators</span> <span class="k">import</span> <span class="n">pandasize</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;OpenAQ&#39;</span><span class="p">]</span>
+
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;1.1.0&quot;</span>
+
+<span class="k">class</span> <span class="nc">API</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generic API wrapper object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_key</span>       <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pswd</span>      <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;pswd&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_version</span>   <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_baseurl</span>   <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;baseurl&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_headers</span>   <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_make_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Internal method to create a url from an endpoint.</span>
+<span class="sd">        :param endpoint: Endpoint for an API call</span>
+<span class="sd">        :type endpoint: string</span>
+<span class="sd">        :returns: url</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_baseurl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">)</span>
+
+        <span class="n">extra</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="c1">#value = &#39;,&#39;.join(value)</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                    <span class="n">extra</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">extra</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">extra</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">endpoint</span> <span class="o">=</span> <span class="s1">&#39;?&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">endpoint</span><span class="p">,</span> <span class="s1">&#39;&amp;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">extra</span><span class="p">)])</span>
+
+        <span class="k">return</span> <span class="n">endpoint</span>
+
+    <span class="k">def</span> <span class="nf">_send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Make an API call of any method</span>
+
+<span class="sd">        :param endpoint: API endpoint</span>
+<span class="sd">        :param method: API call type. Options are PUT, POST, GET, DELETE</span>
+
+<span class="sd">        :type endpoint: string</span>
+<span class="sd">        :type method: string</span>
+
+<span class="sd">        :returns: (status_code, json_response)</span>
+
+<span class="sd">        :raises ApiError: raises an exception</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">auth</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pswd</span><span class="p">)</span>
+        <span class="n">url</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_url</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="n">auth</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_headers</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ApiError</span><span class="p">(</span><span class="s2">&quot;Invalid Method&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ApiError</span><span class="p">(</span><span class="s2">&quot;A bad request was made: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="p">))</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+        <span class="c1"># Add a &#39;pages&#39; attribute to the meta data</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">res</span><span class="p">[</span><span class="s1">&#39;meta&#39;</span><span class="p">][</span><span class="s1">&#39;pages&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;meta&#39;</span><span class="p">][</span><span class="s1">&#39;found&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;meta&#39;</span><span class="p">][</span><span class="s1">&#39;limit&#39;</span><span class="p">])</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="nf">_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="OpenAQ"><a class="viewcode-back" href="../generated/openaq.OpenAQ.html#openaq.OpenAQ">[docs]</a><span class="k">class</span> <span class="nc">OpenAQ</span><span class="p">(</span><span class="n">API</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create an instance of the OpenAQ API</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="OpenAQ.__init__"><a class="viewcode-back" href="../generated/openaq.OpenAQ.html#openaq.OpenAQ.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;v1&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the OpenAQ instance.</span>
+
+<span class="sd">        :param version: API version.</span>
+<span class="sd">        :param kwargs: API options.</span>
+
+<span class="sd">        :type version: string</span>
+<span class="sd">        :type kwargs: dictionary</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_baseurl</span> <span class="o">=</span> <span class="s1">&#39;https://api.openaq.org&#39;</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">OpenAQ</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">,</span> <span class="n">baseurl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_baseurl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenAQ.cities"><a class="viewcode-back" href="../generated/openaq.OpenAQ.cities.html#openaq.OpenAQ.cities">[docs]</a>    <span class="nd">@pandasize</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">cities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a listing of cities within the platform.</span>
+
+<span class="sd">        :param country: limit results by a certain country</span>
+<span class="sd">        :param limit: limit results in the query. Default is 100. Max is 10000.</span>
+<span class="sd">        :param page: paginate through the results. Default is 1.</span>
+<span class="sd">        :param order_by: order by one or more fields (ex. order_by=[&#39;country&#39;, &#39;locations&#39;]). Default value is &#39;country&#39;</span>
+<span class="sd">        :param sort: define the sort order for one or more fields (ex. sort=&#39;desc&#39;)</span>
+<span class="sd">        :param df: convert the output from json to a pandas DataFrame</span>
+<span class="sd">        :param index: if returning as a DataFrame, set index to (&#39;utc&#39;, &#39;local&#39;, None). The default is &#39;local&#39;</span>
+
+<span class="sd">        :return: dictionary containing the *city*, *country*, *count*, and number of *locations*</span>
+
+<span class="sd">        :type country: 2-digit ISO code</span>
+<span class="sd">        :type limit: number</span>
+<span class="sd">        :type order_by: string or list of strings</span>
+<span class="sd">        :type sort: string</span>
+<span class="sd">        :type page: number</span>
+<span class="sd">        :type country: string or array of strings</span>
+<span class="sd">        :type df: bool</span>
+<span class="sd">        :type index: string</span>
+
+<span class="sd">        :Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; import openaq</span>
+<span class="sd">        &gt;&gt;&gt; api = openaq.OpenAQ()</span>
+<span class="sd">        &gt;&gt;&gt; status, resp = api.cities()</span>
+<span class="sd">        &gt;&gt;&gt; resp[&#39;results&#39;]</span>
+<span class="sd">        [</span>
+<span class="sd">            {</span>
+<span class="sd">                &quot;city&quot;: &quot;Amsterdam&quot;,</span>
+<span class="sd">                &quot;country&quot;: &quot;NL&quot;,</span>
+<span class="sd">                &quot;count&quot;: 21301,</span>
+<span class="sd">                &quot;locations&quot;: 14</span>
+<span class="sd">            },</span>
+<span class="sd">            {</span>
+<span class="sd">                &quot;city&quot;: &quot;Badhoevedorp&quot;,</span>
+<span class="sd">                &quot;country&quot;: &quot;NL&quot;,</span>
+<span class="sd">                &quot;count&quot;: 2326,</span>
+<span class="sd">                &quot;locations&quot;: 1</span>
+<span class="sd">            },</span>
+<span class="sd">            ...</span>
+<span class="sd">        ]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="s1">&#39;cities&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenAQ.countries"><a class="viewcode-back" href="../generated/openaq.OpenAQ.countries.html#openaq.OpenAQ.countries">[docs]</a>    <span class="nd">@pandasize</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">countries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a listing of all countries within the platform</span>
+
+<span class="sd">        :param order_by: order by one or more fields (ex. order_by=[&#39;cities&#39;, &#39;locations&#39;]). Default value is &#39;country&#39;</span>
+<span class="sd">        :param sort: define the sort order for one or more fields (ex. sort=&#39;desc&#39;)</span>
+<span class="sd">        :param limit: change the number of results returned. Max is 10000. Default is 100.</span>
+<span class="sd">        :param page: paginate through results. Default is 1.</span>
+<span class="sd">        :param df: return the results as a pandas DataFrame</span>
+<span class="sd">        :param index: if returning as a DataFrame, set index to (&#39;utc&#39;, &#39;local&#39;, None). The default is local</span>
+
+<span class="sd">        :type order_by: string or list</span>
+<span class="sd">        :type sort: string</span>
+<span class="sd">        :type limit: int</span>
+<span class="sd">        :type page: int</span>
+<span class="sd">        :type df: bool</span>
+<span class="sd">        :type index: string</span>
+
+<span class="sd">        :return: dictionary containing the *code*, *name*, *count*, *cities*, and number of *locations*.</span>
+
+<span class="sd">        :Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; import openaq</span>
+<span class="sd">        &gt;&gt;&gt; api = openaq.OpenAQ()</span>
+<span class="sd">        &gt;&gt;&gt; status, resp = api.countries()</span>
+<span class="sd">        &gt;&gt;&gt; resp[&#39;results&#39;]</span>
+<span class="sd">        [</span>
+<span class="sd">            {</span>
+<span class="sd">                &quot;cities&quot;: 174,</span>
+<span class="sd">                &quot;code&quot;: &quot;AT&quot;,</span>
+<span class="sd">                &quot;count&quot;: 121987,</span>
+<span class="sd">                &quot;locations&quot;: 174,</span>
+<span class="sd">                &quot;name&quot;: &quot;Austria&quot;</span>
+<span class="sd">            },</span>
+<span class="sd">            {</span>
+<span class="sd">                &quot;cities&quot;: 28,</span>
+<span class="sd">                &quot;code&quot;: &quot;AU&quot;,</span>
+<span class="sd">                &quot;count&quot;: 1066179,</span>
+<span class="sd">                &quot;locations&quot;: 28,</span>
+<span class="sd">                &quot;name&quot;: &quot;Australia&quot;,</span>
+<span class="sd">            },</span>
+<span class="sd">            ...</span>
+<span class="sd">        ]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="s1">&#39;countries&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenAQ.latest"><a class="viewcode-back" href="../generated/openaq.OpenAQ.latest.html#openaq.OpenAQ.latest">[docs]</a>    <span class="nd">@pandasize</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">latest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Provides the latest value of each parameter for each location</span>
+
+<span class="sd">        :param city: limit results by a certain city. Defaults to ``None``.</span>
+<span class="sd">        :param country: limit results by a certain country. Should be a 2-digit</span>
+<span class="sd">                        ISO country code. Defaults to ``None``.</span>
+<span class="sd">        :param location: limit results by a city. Defaults to ``None``.</span>
+<span class="sd">        :param parameter: limit results by a specific parameter. Options include [</span>
+<span class="sd">                            pm25, pm10, so2, co, no2, o3, bc]</span>
+<span class="sd">        :param has_geo: filter items that do or do not have geographic information.</span>
+<span class="sd">        :param coordinates: center point (`lat`, `long`) used to get measurements within a</span>
+<span class="sd">                                certain area. (Ex: coordinates=40.23,34.17)</span>
+<span class="sd">        :param radius: radius (in meters) used to get measurements. Must be used with coordinates.</span>
+<span class="sd">                        Default value is 2500.</span>
+<span class="sd">        :param limit: change the number of results returned. Max is 10000. Default is 100.</span>
+<span class="sd">        :param page: paginate through the results.</span>
+<span class="sd">        :param df: return results as a pandas DataFrame</span>
+<span class="sd">        :param index: if returning as a DataFrame, set index to (&#39;utc&#39;, &#39;local&#39;, None). The default is local</span>
+
+<span class="sd">        :type city: string</span>
+<span class="sd">        :type country: string</span>
+<span class="sd">        :type location: string</span>
+<span class="sd">        :type parameter: string</span>
+<span class="sd">        :type has_geo: bool</span>
+<span class="sd">        :type coordinates: string</span>
+<span class="sd">        :type radius: int</span>
+<span class="sd">        :type limit: int</span>
+<span class="sd">        :type page: int</span>
+<span class="sd">        :type df: bool</span>
+<span class="sd">        :type index: string</span>
+
+<span class="sd">        :return: dictionary containing the *location*, *country*, *city*, and number of *measurements*</span>
+
+<span class="sd">        :Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; import openaq</span>
+<span class="sd">        &gt;&gt;&gt; api = openaq.OpenAQ()</span>
+<span class="sd">        &gt;&gt;&gt; status, resp = api.latest()</span>
+<span class="sd">        &gt;&gt;&gt; resp[&#39;results&#39;]</span>
+<span class="sd">        [</span>
+<span class="sd">            {</span>
+<span class="sd">                &quot;location&quot;: &quot;Punjabi Bagh&quot;,</span>
+<span class="sd">                &quot;city&quot;: &quot;Delhi&quot;,</span>
+<span class="sd">                &quot;country&quot;: &quot;IN&quot;,</span>
+<span class="sd">                &quot;measurements&quot;: [</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;parameter&quot;: &quot;so2&quot;,</span>
+<span class="sd">                        &quot;value&quot;: 7.8,</span>
+<span class="sd">                        &quot;unit&quot;: &quot;ug/m3&quot;,</span>
+<span class="sd">                        &quot;lastUpdated&quot;: &quot;2015-07-24T11:30:00.000Z&quot;</span>
+<span class="sd">                    },</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;parameter&quot;: &quot;co&quot;,</span>
+<span class="sd">                        &quot;value&quot;: 1.3,</span>
+<span class="sd">                        &quot;unit&quot;: &quot;mg/m3&quot;,</span>
+<span class="sd">                        &quot;lastUpdated&quot;: &quot;2015-07-24T11:30:00.000Z&quot;</span>
+<span class="sd">                    },</span>
+<span class="sd">                    ...</span>
+<span class="sd">                ]</span>
+<span class="sd">                ...</span>
+<span class="sd">            }</span>
+<span class="sd">        ]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="s1">&#39;latest&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenAQ.locations"><a class="viewcode-back" href="../generated/openaq.OpenAQ.locations.html#openaq.OpenAQ.locations">[docs]</a>    <span class="nd">@pandasize</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">locations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Provides metadata about distinct measurement locations</span>
+
+<span class="sd">        :param city: Limit results by one or more cities. Defaults to ``None``. Can define as a single city</span>
+<span class="sd">                        (ex. city=&#39;Delhi&#39;), a list of cities (ex. city=[&#39;Delhi&#39;, &#39;Mumbai&#39;]), or as a tuple</span>
+<span class="sd">                        (ex. city=(&#39;Delhi&#39;, &#39;Mumbai&#39;)).</span>
+<span class="sd">        :param country: Limit results by one or more countries. Should be a 2-digit</span>
+<span class="sd">                        ISO country code as a string, a list, or a tuple. See `city` for details.</span>
+<span class="sd">        :param location: Limit results by one or more locations.</span>
+<span class="sd">        :param parameter: Limit results by one or more parameters. Options include [</span>
+<span class="sd">                            pm25, pm10, so2, co, no2, o3, bc]</span>
+<span class="sd">        :param has_geo: Filter items that do or do not have geographic information.</span>
+<span class="sd">        :param coordinates: center point (`lat`, `long`) used to get measurements within a</span>
+<span class="sd">                                certain area. (Ex: coordinates=40.23,34.17)</span>
+<span class="sd">        :param nearest: get the X nearest number of locations to `coordinates`. Must be used</span>
+<span class="sd">                        with coordinates. Wins over `radius` if both are present. Will add the</span>
+<span class="sd">                        `distance` property to locations.</span>
+<span class="sd">        :param radius: radius (in meters) used to get measurements. Must be used with coordinates.</span>
+<span class="sd">                        Default value is 2500.</span>
+<span class="sd">        :param order_by: order by one or more fields (ex. order_by=[&#39;country&#39;, &#39;count&#39;]). Default value is &#39;location&#39;</span>
+<span class="sd">        :param sort: define the sort order for one or more fields (ex. sort=&#39;desc&#39;)</span>
+<span class="sd">        :param limit: change the number of results returned. Max is 10000. Default is 100.</span>
+<span class="sd">        :param page: paginate through the results.</span>
+<span class="sd">        :param df: return results as a pandas DataFrame</span>
+<span class="sd">        :param index: if returning as a DataFrame, set index to (&#39;utc&#39;, &#39;local&#39;, None). The default is local</span>
+
+<span class="sd">        :type city: string, array, or tuple</span>
+<span class="sd">        :type country: string, array, or tuple</span>
+<span class="sd">        :type location: string, array, or tuple</span>
+<span class="sd">        :type parameter: string, array, or tuple</span>
+<span class="sd">        :type has_geo: bool</span>
+<span class="sd">        :type coordinates: string</span>
+<span class="sd">        :type nearest: int</span>
+<span class="sd">        :type radius: int</span>
+<span class="sd">        :type order_by: string or list</span>
+<span class="sd">        :type sort: string</span>
+<span class="sd">        :type limit: int</span>
+<span class="sd">        :type page: int</span>
+<span class="sd">        :type df: bool</span>
+<span class="sd">        :type index: string</span>
+
+<span class="sd">        :return: a dictionary containing the *location*, *country*, *city*, *count*, *distance*,</span>
+<span class="sd">                    *sourceName*, *sourceNames*, *firstUpdated*, *lastUpdated*, *parameters*, and *coordinates*</span>
+
+<span class="sd">        :Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; import openaq</span>
+<span class="sd">        &gt;&gt;&gt; api = openaq.OpenAQ()</span>
+<span class="sd">        &gt;&gt;&gt; status, resp = api.locations()</span>
+<span class="sd">        &gt;&gt;&gt; resp[&#39;results&#39;]</span>
+<span class="sd">        [</span>
+<span class="sd">            {</span>
+<span class="sd">                &quot;count&quot;: 4242,</span>
+<span class="sd">                &quot;sourceName&quot;: &quot;Australia - New South Wales&quot;,</span>
+<span class="sd">                &quot;firstUpdated&quot;: &quot;2015-07-24T11:30:00.000Z&quot;,</span>
+<span class="sd">                &quot;lastUpdated&quot;: &quot;2015-07-24T11:30:00.000Z&quot;,</span>
+<span class="sd">                &quot;parameters&quot;: [</span>
+<span class="sd">                    &quot;pm25&quot;,</span>
+<span class="sd">                    &quot;pm10&quot;,</span>
+<span class="sd">                    &quot;so2&quot;,</span>
+<span class="sd">                    &quot;co&quot;,</span>
+<span class="sd">                    &quot;no2&quot;,</span>
+<span class="sd">                    &quot;o3&quot;</span>
+<span class="sd">                ],</span>
+<span class="sd">                &quot;country&quot;: &quot;AU&quot;,</span>
+<span class="sd">                &quot;city&quot;: &quot;Central Coast&quot;,</span>
+<span class="sd">                &quot;location&quot;: &quot;wyong&quot;</span>
+<span class="sd">            },</span>
+<span class="sd">            ...</span>
+<span class="sd">        ]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="s1">&#39;locations&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenAQ.measurements"><a class="viewcode-back" href="../generated/openaq.OpenAQ.measurements.html#openaq.OpenAQ.measurements">[docs]</a>    <span class="nd">@pandasize</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">measurements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Provides data about individual measurements</span>
+
+<span class="sd">        :param city: Limit results by a certain city. Defaults to ``None``.</span>
+<span class="sd">        :param country: Limit results by a certain country. Should be a 2-digit</span>
+<span class="sd">                        ISO country code. Defaults to ``None``.</span>
+<span class="sd">        :param location: Limit results by a city. Defaults to ``None``.</span>
+<span class="sd">        :param parameter: Limit results by one or more parameters. Options include [</span>
+<span class="sd">                            pm25, pm10, so2, co, no2, o3, bc]</span>
+<span class="sd">        :param has_geo: Filter items that do or do not have geographic information.</span>
+<span class="sd">        :param coordinates: center point (`lat`, `long`) used to get measurements within a</span>
+<span class="sd">                        certain area. (Ex: coordinates=40.23,34.17)</span>
+<span class="sd">        :param radius: radius (in meters) used to get measurements. Must be used with `coordinates`.</span>
+<span class="sd">                        Default value is 2500.</span>
+<span class="sd">        :param value_from: Show results above a value threshold. Must be used with `parameter`.</span>
+<span class="sd">        :param value_to: Show results below a value threshold. Must be used with `parameter`.</span>
+<span class="sd">        :param date_from: Show results after a certain date. Format should be ``Y-M-D``.</span>
+<span class="sd">        :param date_to: Show results before a certain date. Format should be ``Y-M-D``.</span>
+<span class="sd">        :param sort: The sort order (``asc`` or ``desc``). Must be used with `order_by`.</span>
+<span class="sd">        :param order_by: Field to sort by. Must be used with **sort**.</span>
+<span class="sd">        :param include_fields: Include additional fields in the output. Allowed values are: *attribution*,</span>
+<span class="sd">                            *averagingPeriod*, and *sourceName*.</span>
+<span class="sd">        :param limit: Change the number of results returned. Max is 10000 and default is 100.</span>
+<span class="sd">        :param page: Paginate through the results</span>
+<span class="sd">        :param df: return the results as a pandas DataFrame</span>
+<span class="sd">        :param index: if returning as a DataFrame, set index to (&#39;utc&#39;, &#39;local&#39;, None). The default is local</span>
+
+<span class="sd">        :type city: string</span>
+<span class="sd">        :type country: string</span>
+<span class="sd">        :type location: string</span>
+<span class="sd">        :type parameter: string, array, or tuple</span>
+<span class="sd">        :type has_geo: bool</span>
+<span class="sd">        :type coordinates: string</span>
+<span class="sd">        :type radius: int</span>
+<span class="sd">        :type value_from: number</span>
+<span class="sd">        :type value_to: number</span>
+<span class="sd">        :type date_from: date</span>
+<span class="sd">        :type date_to: date</span>
+<span class="sd">        :type sort: string</span>
+<span class="sd">        :type order_by: string</span>
+<span class="sd">        :type include_fields: array</span>
+<span class="sd">        :type limit: number</span>
+<span class="sd">        :type page: number</span>
+<span class="sd">        :type df: bool</span>
+<span class="sd">        :type index: string</span>
+
+<span class="sd">        :return: a dictionary containing the *date*, *parameter*, *value*, *unit*,</span>
+<span class="sd">            *location*, *country*, *city*, *coordinates*, and *sourceName*.</span>
+
+<span class="sd">        :Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; import openaq</span>
+<span class="sd">        &gt;&gt;&gt; api = openaq.OpenAQ()</span>
+<span class="sd">        &gt;&gt;&gt; status, resp = api.measurements(city = &#39;Delhi&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; resp[&#39;results&#39;]</span>
+<span class="sd">        {</span>
+<span class="sd">            &quot;parameter&quot;: &quot;Ammonia&quot;,</span>
+<span class="sd">            &quot;date&quot;: {</span>
+<span class="sd">                &quot;utc&quot;: &quot;2015-07-16T20:30:00.000Z&quot;,</span>
+<span class="sd">                &#39;local&#39;: &quot;2015-07-16T18:30:00.000-02:00&quot;</span>
+<span class="sd">            },</span>
+<span class="sd">            &quot;value&quot;: &quot;72.9&quot;,</span>
+<span class="sd">            &quot;unit&quot;: &quot;ug/m3&quot;,</span>
+<span class="sd">            &quot;location&quot;: &quot;Anand Vihar&quot;,</span>
+<span class="sd">            &quot;country&quot;: &quot;IN&quot;,</span>
+<span class="sd">            &quot;city&quot;: &quot;Delhi&quot;,</span>
+<span class="sd">            &quot;coordinates&quot;: {</span>
+<span class="sd">                &quot;latitude&quot;: 43.34,</span>
+<span class="sd">                &quot;longitude&quot;: 23.04</span>
+<span class="sd">            },</span>
+<span class="sd">            &quot;attribution&quot;: {</span>
+<span class="sd">                &quot;name&quot;: &quot;SINCA&quot;,</span>
+<span class="sd">                &quot;url&quot;: &quot;http://sinca.mma.gob.cl/&quot;</span>
+<span class="sd">            },</span>
+<span class="sd">            {</span>
+<span class="sd">                &quot;name&quot;: &quot;Ministerio del Medio Ambiente&quot;</span>
+<span class="sd">            }</span>
+<span class="sd">            ...</span>
+<span class="sd">        }</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="s1">&#39;measurements&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenAQ.fetches"><a class="viewcode-back" href="../generated/openaq.OpenAQ.fetches.html#openaq.OpenAQ.fetches">[docs]</a>    <span class="k">def</span> <span class="nf">fetches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Provides data about individual fetch operations that are used to populate</span>
+<span class="sd">        data in the platform.</span>
+
+<span class="sd">        :param order_by: order by one or more fields (ex. order_by=[&#39;timeEnded&#39;, &#39;count&#39;]). Default value is &#39;country&#39;</span>
+<span class="sd">        :param sort: define the sort order for one or more fields (ex. sort=&#39;desc&#39;)</span>
+<span class="sd">        :param limit: change the number of results returned. Max is 10000. Default is 100.</span>
+<span class="sd">        :param page: paginate through the results. Default is 1.</span>
+
+<span class="sd">        :type order_by: string or list</span>
+<span class="sd">        :type sort: string</span>
+<span class="sd">        :type limit: int</span>
+<span class="sd">        :type page: int</span>
+
+<span class="sd">        :return: dictionary containing the *timeStarted*, *timeEnded*, *count*, and *results*</span>
+
+<span class="sd">        :Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; import openaq</span>
+<span class="sd">        &gt;&gt;&gt; api = openaq.OpenAQ()</span>
+<span class="sd">        &gt;&gt;&gt; status, resp = api.fetches()</span>
+<span class="sd">        &gt;&gt;&gt; resp</span>
+<span class="sd">        {</span>
+<span class="sd">            &quot;meta&quot;: {</span>
+<span class="sd">                &quot;name&quot;: &quot;openaq-api&quot;,</span>
+<span class="sd">                &quot;license&quot;:</span>
+<span class="sd">                &quot;website&quot;:</span>
+<span class="sd">                &quot;page&quot;: 1,</span>
+<span class="sd">                &quot;limit&quot;: 100,</span>
+<span class="sd">                &quot;found&quot;: 3,</span>
+<span class="sd">                &quot;pages&quot;: 1</span>
+<span class="sd">            },</span>
+<span class="sd">            &quot;results&quot;: [</span>
+<span class="sd">                {</span>
+<span class="sd">                    &quot;count&quot;: 0,</span>
+<span class="sd">                    &quot;results&quot;: [</span>
+<span class="sd">                        {</span>
+<span class="sd">                            &quot;message&quot;: &quot;New measurements inserted for Mandir Marg: 1&quot;,</span>
+<span class="sd">                            &quot;failures&quot;: {},</span>
+<span class="sd">                            &quot;count&quot;: 0,</span>
+<span class="sd">                            &quot;duration&quot;: 0.153,</span>
+<span class="sd">                            &quot;sourceName&quot;: &quot;Mandir Marg&quot;</span>
+<span class="sd">                        },</span>
+<span class="sd">                        {</span>
+<span class="sd">                            &quot;message&quot;: &quot;New measurements inserted for Sao Paulo: 1898&quot;,</span>
+<span class="sd">                            &quot;failures&quot;: {},</span>
+<span class="sd">                            &quot;count&quot;: 1898,</span>
+<span class="sd">                            &quot;duration&quot;: 16.918,</span>
+<span class="sd">                            &quot;sourceName&quot;: &quot;Sao Paulo&quot;</span>
+<span class="sd">                        },</span>
+<span class="sd">                        ...</span>
+<span class="sd">                    ],</span>
+<span class="sd">                    &quot;timeStarted&quot;: &quot;2016-02-07T15:25:04.603Z&quot;,</span>
+<span class="sd">                    &quot;timeEnded&quot;: &quot;2016-02-07T15:25:04.793Z&quot;,</span>
+<span class="sd">                }</span>
+<span class="sd">            ]</span>
+<span class="sd">        }</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="s1">&#39;fetches&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenAQ.parameters"><a class="viewcode-back" href="../generated/openaq.OpenAQ.parameters.html#openaq.OpenAQ.parameters">[docs]</a>    <span class="nd">@pandasize</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provides a simple listing of parameters within the platform.</span>
+
+<span class="sd">        :param order_by: order by one or more fields (ex. order_by=[&#39;preferredUnit&#39;, &#39;id&#39;]). Default value is &#39;country&#39;</span>
+<span class="sd">        :param sort: define the sort order for one or more fields (ex. sort=&#39;desc&#39;)</span>
+
+<span class="sd">        :type order_by: string or list</span>
+<span class="sd">        :type sort: string</span>
+
+<span class="sd">        :return: a dictionary containing the *id*, *name*, *description*, and</span>
+<span class="sd">            *preferredUnit*.</span>
+
+<span class="sd">        :Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; import openaq</span>
+<span class="sd">        &gt;&gt;&gt; api = openaq.OpenAQ()</span>
+<span class="sd">        &gt;&gt;&gt; status, resp = api.parameters()</span>
+<span class="sd">        &gt;&gt;&gt; resp[&#39;results&#39;]</span>
+<span class="sd">        [</span>
+<span class="sd">            {</span>
+<span class="sd">                &quot;id&quot;: &quot;pm25&quot;,</span>
+<span class="sd">               &quot;name&quot;: &quot;PM2.5&quot;,</span>
+<span class="sd">               &quot;description&quot;: &quot;Particulate matter less than 2.5 micrometers in diameter&quot;,</span>
+<span class="sd">               &quot;preferredUnit&quot;: &quot;ug/m3&quot;</span>
+<span class="sd">            }</span>
+<span class="sd">            ...</span>
+<span class="sd">        ]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="s1">&#39;parameters&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenAQ.sources"><a class="viewcode-back" href="../generated/openaq.OpenAQ.sources.html#openaq.OpenAQ.sources">[docs]</a>    <span class="nd">@pandasize</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">sources</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provides a list of data sources.</span>
+
+<span class="sd">        :param order_by: order by one or more fields (ex. order_by=[&#39;active&#39;, &#39;country&#39;]). Default value is &#39;country&#39;</span>
+<span class="sd">        :param sort: define the sort order for one or more fields (ex. sort=&#39;desc&#39;)</span>
+<span class="sd">        :param limit: Change the number of results returned.</span>
+<span class="sd">        :param page: Paginate through the results</span>
+<span class="sd">        :param df: return the results as a pandas DataFrame</span>
+<span class="sd">        :param index: if returning as a DataFrame, set index to (&#39;utc&#39;, &#39;local&#39;, None). The default is local</span>
+
+<span class="sd">        :type limit: number</span>
+<span class="sd">        :type page: number</span>
+<span class="sd">        :type df: bool</span>
+<span class="sd">        :type index: string</span>
+<span class="sd">        :type order_by: string or list</span>
+<span class="sd">        :type sort: string</span>
+
+<span class="sd">        :return: a dictionary containing the *url*, *adapter*, *name*, *city*,</span>
+<span class="sd">            *country*, *description*, *resolution*, *sourceURL*, *contacts*, and *active*.</span>
+
+<span class="sd">        :Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; import openaq</span>
+<span class="sd">        &gt;&gt;&gt; api = openaq.OpenAQ()</span>
+<span class="sd">        &gt;&gt;&gt; status, resp = api.sources()</span>
+<span class="sd">        &gt;&gt;&gt; resp[&#39;results&#39;]</span>
+<span class="sd">        [</span>
+<span class="sd">            {</span>
+<span class="sd">                &quot;url&quot;: &quot;http://airquality.environment.nsw.gov.au/aquisnetnswphp/getPage.php?reportid=2&quot;,</span>
+<span class="sd">                &quot;adapter&quot;: &quot;nsw&quot;,</span>
+<span class="sd">                &quot;name&quot;: &quot;Australia - New South Wales&quot;,</span>
+<span class="sd">                &quot;city&quot;: &quot;&quot;,</span>
+<span class="sd">                &quot;country&quot;: &quot;AU&quot;,</span>
+<span class="sd">                &quot;description&quot;: &quot;Measurements from the Office of Environment &amp; Heritage of the New South Wales government.&quot;,</span>
+<span class="sd">                &quot;resolution&quot;: &quot;1 hr&quot;,</span>
+<span class="sd">                &quot;sourceURL&quot;: &quot;http://www.environment.nsw.gov.au/AQMS/hourlydata.htm&quot;,</span>
+<span class="sd">                &quot;contacts&quot;: [</span>
+<span class="sd">                    &quot;olaf@developmentseed.org&quot;</span>
+<span class="sd">                ]</span>
+<span class="sd">            }</span>
+<span class="sd">            ...</span>
+<span class="sd">        ]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="s1">&#39;sources&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;OpenAQ API&quot;</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, David H Hagan.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
