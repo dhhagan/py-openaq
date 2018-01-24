@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import dateutil
 
 def to_naive_timestamp(timestamp):
