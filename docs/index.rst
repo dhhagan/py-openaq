@@ -1,107 +1,122 @@
-.. py-openaq documentation master file, created by
-   sphinx-quickstart on Sat Dec 26 08:07:34 2015.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. raw:: html
+
+    <style type="text/css">
+    .thumbnail {{
+        position: relative;
+        float: left;
+        margin: 10px;
+        width: 180px;
+        height: 200px;
+    }}
+
+    .thumbnail img {{
+        position: absolute;
+        display: inline;
+        left: 0;
+        width: 170px;
+        height: 170px;
+    }}
 
 
-Welcome to py-openaq's documentation!
-=====================================
+    </style>
 
-**py-openaq** provides easy access to the Open AQ API.
+py-openaq: open air quality data
+================================
 
-Installation
-------------
-You can install this package in the usual way using ``pip``::
+.. raw:: html
 
-    pip install py-openaq
+    <div style="clear: both"></div>
+    <div class="container-fluid hidden-xs hidden-sm">
+      <div class="row">
+        <a href="examples/hawaii_ts_plot.html">
+          <div class="col-md-2 thumbnail">
+            <img src="_static/hawaii_ts_plot_thumb.png">
+          </div>
+        </a>
+        <a href="examples/pm25_histogram_delhi.html">
+          <div class="col-md-2 thumbnail">
+            <img src="_static/pm25_histogram_delhi_thumb.png">
+          </div>
+        </a>
+        <a href="examples/pm25_vs_pm10_distribution.html">
+          <div class="col-md-2 thumbnail">
+            <img src="_static/pm25_vs_pm10_distribution_thumb.png">
+          </div>
+        </a>
+        <a href="examples/pollution_outlook_delhi.html">
+          <div class="col-md-2 thumbnail">
+            <img src="_static/pollution_outlook_delhi_thumb.png">
+          </div>
+        </a>
+        <!--
+        <a href="examples/opc_with_dist.html">
+          <div class="col-md-2 thumbnail">
+            <img src="_static/opc_with_dist_thumb.png">
+          </div>
+        </a>
+        <a href="examples/build_your_own_distribution.html">
+          <div class="col-md-2 thumbnail">
+            <img src="_static/build_your_own_distribution_thumb.png">
+          </div>
+        </a>
+        -->
+      </div>
+    </div>
 
-You can upgrade this package using ``pip`` as well::
+    <br>
 
-    pip install py-openaq --upgrade
-
-
-Requirements
-------------
-
-The only requirement for this package is ``requests``. If you are not limited
-by memory or space, I would highly recommend installing ``pandas`` and ``seaborn``
-which will enable you to use the new visualization helpers that were released with
-version 1.
-
-Current Limitations
--------------------
-As of now, the only feature that is not built into the API wrapper is returning various formats
-from the ``openaq.OpenAQ.measurements`` call. This is because I don't see any reason to use python
-to return a csv. If a csv is your desired output, I recommend using pandas' ``DataFrame.to_csv()`` method.
-
-Initialization
---------------
-
-The following code example shows how to make your first API call::
-
-    import openaq
-
-    api = openaq.OpenAQ()
-
-    status, resp = api.cities()
-
-Understanding the Response format
----------------------------------
-
-Each API call will reply with a tuple containing the status code and the response
-in json format. The three most common API status codes you will see are:
-
-  * 200: Success
-  * 40x: Error: Bad Request
-  * 500: Server Error
-
-The json response will look something like the following with both ``meta`` and ``results``::
-
-    {
-    'meta': {'license': 'CC By 4.0', 'name': 'openaq-api', 'website': 'https://docs.openaq.org/'},
-    'results': [
-        {'city': 'Amsterdam', 'count': 71125, 'country': 'NL', 'locations': 14},
-        {'city': 'Antofagasta', 'count': 3416, 'country': 'CL', 'locations': 1},
-        {'city': 'Arica', 'count': 1682, 'country': 'CL', 'locations': 1},
-        {'city': 'Ayutthaya', 'count': 3880, 'country': 'TH', 'locations': 1},
-        {'city': 'Badhoevedorp', 'count': 7862, 'country': 'NL', 'locations': 1},
-        ...
-        ]
-    }
+       <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-9">
+            <br>
 
 
-Coupling with Pandas DataFrame
-------------------------------
-The `pandasize` decorator was added to easily allow you to read in data directly
-to a DataFrame. To do so, simply add the argument `df = True` to your request.
 
-The following API methods allow you to return your data as a DataFrame:
+       <em>py-openaq</em> provides an easy-to-use interface for the OpenAQ API.
 
-  * cities
-  * countries
-  * latest
-  * locations
-  * measurements
-  * sources
+       The OpenAQ API is use to provide programmatic access to openly available
+       air quality data.
 
-By using this keyword argument, the results of the API call will return a pandas DataFrame rather than a json response.
 
-Example:
+       <h3>from openaq.org</h3>
+       <blockquote>
+            We fight air inequality through open data, open-source tools, and a
+            global, grassroots community. Because data needs a collaborative community
+            for impact.
+        </blockquote>
 
-    >>> df = api.latest(df = True)
+        <h3>the data</h3>
 
-The results are parsed through the `pandasize` decorator which tries to interpret the fields in the most ideal format possible.
-Thus, all datetime fields should be converted to proper python datetimes to allow for easy splicing, manipulation, and plotting.
+        <div style='padding:5px; margin-bottom:20px;'>
+            <p>
+                Our community has collected 153,678,944 air quality measurements
+                from 8,247 locations in 64 countries as of Jan 2018. Data are
+                aggregated from 101 government level and research-grade sources.
+            </p>
+        </div>
 
-API Reference
-=============
 
-.. module:: openaq
-.. autoclass:: OpenAQ
-   :members: cities, countries, latest, locations, measurements, fetches,
-                parameters, sources
+.. raw:: html
 
-Visualization Reference
-=======================
-.. module:: openaq.viz
-.. autofunction:: tsplot
+   </div>
+   <div class="col-md-3">
+   <h2>Documentation</h2>
+
+.. toctree::
+   :maxdepth: 1
+
+   installing
+   api
+   tutorial
+   examples/index
+
+.. raw:: html
+
+   </div>
+   <div class="col-md-3">
+
+.. raw:: html
+
+   </div>
+   </div>
+   </div>

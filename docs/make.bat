@@ -27,6 +27,7 @@ if "%1" == "help" (
 	echo.  qthelp     to make HTML files and a qthelp project
 	echo.  devhelp    to make HTML files and a Devhelp project
 	echo.  epub       to make an epub
+	echo.  epub3      to make an epub3
 	echo.  latex      to make LaTeX files, you can set PAPER=a4 or PAPER=letter
 	echo.  text       to make text files
 	echo.  man        to make manual pages
@@ -38,6 +39,7 @@ if "%1" == "help" (
 	echo.  linkcheck  to check all external links for integrity
 	echo.  doctest    to run all doctests embedded in the documentation if enabled
 	echo.  coverage   to run coverage check of the documentation if enabled
+	echo.  dummy      to check syntax errors of document sources
 	goto end
 )
 
@@ -77,6 +79,14 @@ if "%1" == "html" (
 	if errorlevel 1 exit /b 1
 	echo.
 	echo.Build finished. The HTML pages are in %BUILDDIR%/html.
+	goto end
+)
+
+if "%1" == "notebooks" (
+	%SPHINXBUILD% -C tutorial notebooks
+	if errorlevel 1 exit /b 1
+	echo.
+	echo.Making Notebooks.
 	goto end
 )
 
@@ -146,6 +156,14 @@ if "%1" == "epub" (
 	if errorlevel 1 exit /b 1
 	echo.
 	echo.Build finished. The epub file is in %BUILDDIR%/epub.
+	goto end
+)
+
+if "%1" == "epub3" (
+	%SPHINXBUILD% -b epub3 %ALLSPHINXOPTS% %BUILDDIR%/epub3
+	if errorlevel 1 exit /b 1
+	echo.
+	echo.Build finished. The epub3 file is in %BUILDDIR%/epub3.
 	goto end
 )
 
@@ -257,6 +275,14 @@ if "%1" == "pseudoxml" (
 	if errorlevel 1 exit /b 1
 	echo.
 	echo.Build finished. The pseudo-XML files are in %BUILDDIR%/pseudoxml.
+	goto end
+)
+
+if "%1" == "dummy" (
+	%SPHINXBUILD% -b dummy %ALLSPHINXOPTS% %BUILDDIR%/dummy
+	if errorlevel 1 exit /b 1
+	echo.
+	echo.Build finished. Dummy builder generates no files.
 	goto end
 )
 

@@ -3,6 +3,7 @@ import openaq
 import pandas as pd
 from openaq.viz import *
 
+
 class SetupTestCase(unittest.TestCase):
     def setUp(self):
         self.api = openaq.OpenAQ()
@@ -15,11 +16,11 @@ class SetupTestCase(unittest.TestCase):
 
     def test_tsplot_1hr(self):
         data = self.api.measurements(
-                    city = 'Delhi',
-                    parameter = 'pm25',
-                    location = 'Anand Vihar',
-                    limit = 5,
-                    df = True)
+                    city='Delhi',
+                    parameter='pm25',
+                    location='Anand Vihar',
+                    limit=5,
+                    df=True)
 
         a = tsplot(data)
 

@@ -23,6 +23,17 @@ class SetupTestCase(unittest.TestCase):
 
         self.assertTrue(status == 200)
 
+        # Test order_by
+        status, resp = self.api.cities(country='US', order_by='country')
+        self.assertTrue(status == 200)
+
+        status, resp = self.api.cities(country='US', order_by=['country', 'locations'])
+        self.assertTrue(status == 200)
+
+        # Test sorting
+        status, resp = self.api.cities(country='US', sort='asc')
+        self.assertTrue(status == 200)
+
     def test_add_pages(self):
         status, resp = self.api.cities( country = 'US' )
 
@@ -65,15 +76,9 @@ class SetupTestCase(unittest.TestCase):
             self.assertTrue(r['city'] in ['Delhi', 'Mumbai'])
 
     def test_measurements(self):
-        status, resp = self.api.measurements(city = 'Delhi')
+        status, resp = self.api.measurements(city='Delhi')
 
         self.assertTrue(status == 200)
-
-    #def test_measurements_with_params(self):
-    #    status, resp = self.api.measurements(include_fields = ['location', 'parameter',
-    #                            'date', 'value'])
-
-    #    self.assertTrue(status == 200)
 
     def test_pandasize(self):
         resp    = self.api.latest(df=True)
@@ -97,9 +102,8 @@ class SetupTestCase(unittest.TestCase):
     def test_bad_request(self):
         endpoint = "http://api.openaq.org/v1/fetch"
 
-        status, resp = self.api._send('PUT')
-
-        self.assertRaises(openaq.exceptions.ApiError)
+        with self.assertRaises(openaq.exceptions.ApiError):
+            status, resp = self.api._send('PUT')
 
     def test_parameters(self):
         status, resp = self.api.parameters()
@@ -107,12 +111,12 @@ class SetupTestCase(unittest.TestCase):
         self.assertIsNotNone(resp['results'])
 
     def test_sources(self):
-        status, resp = self.api.sources(limit = 1)
+        status, resp = self.api.sources(limit=1)
 
         self.assertIsNotNone(resp['results'])
 
     def test_local_time(self):
-        status, resp = self.api.measurements(city = 'Hilo')
+        status, resp = self.api.measurements(city='Hilo')
 
         self.assertTrue(status == 200)
 

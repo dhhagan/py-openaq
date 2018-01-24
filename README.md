@@ -17,13 +17,15 @@ Full documentation can be found [here][2]!
 
 ### Generating Documentation
 
-Documentation is generated using [sphinx][3] and [auto-doc][4]. Please see their respective documents for help.
-Docs are automatically built for each new release, but you can build them locally using the following command
- from within the `/docs` directory:
+Documentation is generated using [sphinx][3] and [auto-doc][4]. Please see their respective documents for help. Docs are automatically built for each new release, but you can build them locally by navigating to the `/docs` directory and then issuing the following commands:
 
-    make html
+    >>> make clean
+    >>> make notebooks
+    >>> make html
 
-### Suggesting Enhancements
+You can then go ahead and navigate to the `/docs/_build/html` directory and open them up by clicking on `index.html`. Eventually, I will get around to writing much more detailed instructions on how to contribute to the documentation, but for now, this is it!
+
+### Suggestions
 
 If there is a feature you would like to see added, please submit as an [Issue][5].
 Feel free to send pull requests if you are comfortable, otherwise another developer will try to reply to any issue requests.
