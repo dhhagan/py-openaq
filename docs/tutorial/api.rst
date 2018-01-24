@@ -534,7 +534,7 @@ What was the most recent :math:`PM_{2.5}` data in Delhi?
           <td>Anand Vihar</td>
           <td>pm25</td>
           <td>CPCB</td>
-          <td>µg/m³</td>
+          <td>b'\xc2\xb5g/m\xc2\xb3'</td>
           <td>70.00</td>
         </tr>
         <tr>
@@ -546,7 +546,7 @@ What was the most recent :math:`PM_{2.5}` data in Delhi?
           <td>Anand Vihar, Delhi - DPCC</td>
           <td>pm25</td>
           <td>CPCB</td>
-          <td>µg/m³</td>
+          <td>b'\xc2\xb5g/m\xc2\xb3'</td>
           <td>160.00</td>
         </tr>
         <tr>
@@ -558,7 +558,7 @@ What was the most recent :math:`PM_{2.5}` data in Delhi?
           <td>Aya Nagar, Delhi - IMD</td>
           <td>pm25</td>
           <td>CPCB</td>
-          <td>µg/m³</td>
+          <td>b'\xc2\xb5g/m\xc2\xb3'</td>
           <td>192.84</td>
         </tr>
         <tr>
@@ -570,7 +570,7 @@ What was the most recent :math:`PM_{2.5}` data in Delhi?
           <td>Burari Crossing, Delhi - IMD</td>
           <td>pm25</td>
           <td>CPCB</td>
-          <td>µg/m³</td>
+          <td>b'\xc2\xb5g/m\xc2\xb3'</td>
           <td>53.45</td>
         </tr>
         <tr>
@@ -582,7 +582,7 @@ What was the most recent :math:`PM_{2.5}` data in Delhi?
           <td>CRRI Mathura Road, Delhi - IMD</td>
           <td>pm25</td>
           <td>CPCB</td>
-          <td>µg/m³</td>
+          <td>b'\xc2\xb5g/m\xc2\xb3'</td>
           <td>185.60</td>
         </tr>
       </tbody>
