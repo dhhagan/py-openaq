@@ -23,7 +23,7 @@ Documentation is generated using [sphinx][3] and [auto-doc][4]. Please see their
     >>> make notebooks
     >>> make html
 
-You can then go ahead and navigate to the `/docs/_build/html` directory and open them up by clicking on `index.html`. Eventually, I will get around to writing much more detailed instructions on how to contribute to the documentation, but for now, this is it!
+You can then go ahead and navigate to the `/docs/_build/html` directory and open them up by clicking on `index.html`. There is a brief explanation on how to better contribute to docs, which can be found in the README.md file within the docs/ directory!
 
 ### Suggestions
 
@@ -53,7 +53,7 @@ To run the tests locally with coverage:
 
 
 [1]: https://docs.openaq.org/
-[2]: http://py-openaq.readthedocs.org/en/latest/
+[2]: http://dhhagan.github.io/py-openaq/index.html
 [3]: http://www.sphinx-doc.org/en/stable/
 [4]: http://www.sphinx-doc.org/en/stable/ext/autodoc.html
 [5]: https://github.com/dhhagan/py-openaq/issues/new
