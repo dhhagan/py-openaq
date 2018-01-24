@@ -41,9 +41,9 @@ def mass_to_mix(value, param, unit='ppb', **kwargs):
     param = param.lower()
 
     if param not in lookup.keys():
-        raise Exception("Invalid param")
+        return value
 
-    value = value * lookup[param]
+    value = value / lookup[param]
 
     if unit.lower() == 'ppm':
         value *= 1e-3

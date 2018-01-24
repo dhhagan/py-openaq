@@ -1,6 +1,16 @@
 
 .. _delhi_tutorial:
 
+Evaluating Delhi’s AQ Using OpenAQ
+==================================
+
+Most of my own atmospheric chemistry research as a PhD student at MIT is
+based in Delhi. Thus, for this tutorial, we will take a deeper look at
+the air quality data made available to us through OpenAQ. We will begin
+by figuring out exactly what data is available to us, and then further
+examine the most relevant and up-to-date sources. We will take a look at
+longer trends for some pollutants where possible.
+
 .. code:: ipython3
 
     import pandas as pd
@@ -15,17 +25,10 @@
     %matplotlib inline
     
     # Set major seaborn asthetics
-    sns.set("notebook", style='ticks', font_scale=1.5)
-
-Evaluating Delhi’s AQ Using OpenAQ
-==================================
-
-Most of my own atmospheric chemistry research as a PhD student at MIT is
-based in Delhi. Thus, for this tutorial, we will take a deeper look at
-the air quality data made available to us through OpenAQ. We will begin
-by figuring out exactly what data is available to us, and then further
-examine the most relevant and up-to-date sources. We will take a look at
-longer trends for some pollutants where possible.
+    sns.set("notebook", style='ticks', font_scale=1.0)
+    
+    # Increase the quality of inline plots
+    mpl.rcParams['figure.dpi']= 500
 
 Choosing Locations
 ------------------
@@ -149,8 +152,12 @@ see what parameters we have to play with!
 
 .. parsed-literal::
 
-    ['pm10', 'so2', 'co', 'no2', 'o3', 'pm25']
+    ['pm10', 'pm25', 'so2', 'o3', 'co', 'no2']
 
 
 
 Great. Now we have a list of parameters that we can evaluate.
+
+The rest of this tutorial will be finished in the future when I have
+away from writing manuscripts (unless someone wants to take a stab at it
+and send a pull request!)…

@@ -37,6 +37,9 @@ versions of all packages:
     # Set major seaborn asthetics
     sns.set("notebook", style='ticks', font_scale=1.0)
     
+    # Increase the quality of inline plots
+    mpl.rcParams['figure.dpi']= 500
+    
     print ("pandas v{}".format(pd.__version__))
     print ("matplotlib v{}".format(mpl.__version__))
     print ("seaborn v{}".format(sns.__version__))
@@ -123,16 +126,16 @@ at them:
 .. parsed-literal::
 
                                                city   count country  locations
-    0                            Escaldes-Engordany   13281      AD          2
+    0                            Escaldes-Engordany   13324      AD          2
     1                                        unused     314      AD          1
-    2                                     Abu Dhabi     471      AE          1
+    2                                     Abu Dhabi     477      AE          1
     3                                  Buenos Aires   14976      AR          4
-    4                                       Austria  121987      AT        174
-    5      Amt der Burgenländischen Landesregierung     471      AT          1
-    6              Gemeinde Wien, MA22 Umweltschutz  130328      AT         21
-    7              Amt der K�rntner Landesregierung  104663      AT         16
-    8  Amt der Ober�sterreichischen Landesregierung  154329      AT         16
-    9      Amt der Steierm�rkischen Landesregierung  320372      AT         41
+    4              Amt der K�rntner Landesregierung  104663      AT         16
+    5                                       Austria  121987      AT        174
+    6  Amt der Ober�sterreichischen Landesregierung  154329      AT         16
+    7      Amt der Burgenl�ndischen Landesregierung   35608      AT          3
+    8            Amt der Salzburger Landesregierung   94197      AT         12
+    9      Amt der Burgenländischen Landesregierung     471      AT          1
 
 
 Let’s try to find out which ones are in India:
@@ -145,67 +148,67 @@ Let’s try to find out which ones are in India:
 .. parsed-literal::
 
                        city    count country  locations
-    841           Bengaluru   371331      IN          8
-    842             Asansol     1482      IN          2
-    843               Delhi  1139583      IN         35
-    844       Visakhapatnam   208237      IN          8
-    845           Hyderabad   465489      IN         15
-    846           Faridabad   113416      IN          2
-    847              Jaipur   190189      IN          6
-    848              Howrah    50158      IN          4
-    849          Vijayawada    11530      IN          2
-    850                Gaya    76745      IN          1
-    851              Ujjain    16806      IN          1
-    852             Jodhpur   151092      IN          1
-    853             Kolkata   168530      IN          7
-    854            Varanasi   181578      IN          1
-    855              Haldia   115212      IN          2
-    856          Vijayawara    34902      IN          1
-    857            Durgapur    78697      IN          2
-    858             Lucknow   271614      IN          5
-    859             Chennai   290187      IN          4
-    860           Amaravati    11330      IN          1
-    861    Mandi Gobindgarh    48579      IN          1
-    862          Jorapokhar    35460      IN          1
-    863              Nagpur    72268      IN          5
-    864           Ghaziabad    98962      IN          2
-    865               Alwar    13937      IN          1
-    866           Singrauli    14488      IN          1
-    867            Tirupati   158998      IN          4
-    868                Kota    23162      IN          2
-    869             Gurgaon   147795      IN          1
-    870              Mumbai   309353      IN          3
+    841              Mumbai   309477      IN          3
+    842                Kota    23264      IN          2
+    843               Delhi  1140259      IN         35
+    844           Ghaziabad    99087      IN          2
+    845          Barddhaman     2470      IN          3
+    846             Asansol     1590      IN          2
+    847             Lucknow   271912      IN          5
+    848         Muzaffarpur   116841      IN          1
+    849           Hyderabad   465962      IN         15
+    850       Visakhapatnam   208237      IN          8
+    851            Amritsar    77849      IN          1
+    852             Bhiwadi    20846      IN          1
+    853             Kolkata   168542      IN          7
+    854           Bengaluru   371649      IN          8
+    855              Howrah    50263      IN          4
+    856         Navi Mumbai     7725      IN          1
+    857           Ahmedabad    57714      IN          2
+    858           Faridabad   113546      IN          2
+    859              Nashik    76217      IN          4
+    860              Haldia   115284      IN          2
+    861  Thiruvananthapuram    46124      IN          2
+    862              Rohtak    95050      IN          1
+    863               Medak     2671      IN          1
+    864                Pune   145450      IN          1
+    865            Tirupati   159117      IN          4
+    866               Ajmer    25266      IN          2
+    867          Vijayawara    34902      IN          1
+    868            Durgapur    78761      IN          2
+    869          Jorapokhar    35558      IN          1
+    870               NOIDA    12061      IN          1
     ..                  ...      ...     ...        ...
-    873   Rajamahendravaram    30508      IN          3
-    874             Solapur   253903      IN          1
-    875               NOIDA    12057      IN          1
-    876           Pithampur    12068      IN          1
-    877                Pali    23555      IN          2
-    878              Nashik    76122      IN          4
-    879             Dhanbad        3      IN          1
-    880          Barddhaman     2470      IN          3
-    881            Siliguri       30      IN          2
-    882               Thane   129908      IN          3
-    883            Ludhiana    72200      IN          1
-    884           Mandideep     7739      IN          1
-    885          Chandrapur   232062      IN          2
-    886            Amritsar    77741      IN          1
-    887           Moradabad    24560      IN          1
-    888  Thiruvananthapuram    46029      IN          2
-    889                Agra    84253      IN          1
-    890           Ahmedabad    57614      IN          2
-    891            Chittoor     2013      IN          1
-    892                Pune   145350      IN          1
-    893             Udaipur    25585      IN          1
-    894         Muzaffarpur   116766      IN          1
-    895              Rohtak    94980      IN          1
-    896         Navi Mumbai     7692      IN          1
-    897               Ajmer    25170      IN          2
-    898               Dewas    11575      IN          1
-    899               Patna    75238      IN          1
-    900           Panchkula   144839      IN          1
-    901               Medak     2671      IN          1
-    902             Bhiwadi    20804      IN          1
+    873                Gaya    76810      IN          1
+    874          Chandrapur   232244      IN          2
+    875             Chennai   290415      IN          4
+    876            Siliguri       30      IN          2
+    877               Thane   130025      IN          3
+    878              Nagpur    72328      IN          5
+    879           Mandideep     7847      IN          1
+    880               Patna    75338      IN          1
+    881             Dhanbad        3      IN          1
+    882          Aurangabad   113529      IN          1
+    883              Kanpur   159678      IN          2
+    884           Moradabad    24595      IN          1
+    885            Chittoor     2013      IN          1
+    886               Alwar    14017      IN          1
+    887          Vijayawada    11624      IN          2
+    888             Udaipur    25699      IN          1
+    889              Jaipur   190441      IN          6
+    890            Ludhiana    72308      IN          1
+    891            Varanasi   181673      IN          1
+    892                Pali    23627      IN          2
+    893              Ujjain    16924      IN          1
+    894           Singrauli    14636      IN          1
+    895             Jodhpur   151172      IN          1
+    896                Agra    84301      IN          1
+    897               Dewas    11671      IN          1
+    898           Amaravati    11432      IN          1
+    899    Mandi Gobindgarh    48579      IN          1
+    900             Solapur   253940      IN          1
+    901           Pithampur    12173      IN          1
+    902             Gurgaon   147910      IN          1
     
     [62 rows x 4 columns]
 
@@ -228,138 +231,17 @@ limit to the maximum (10000).
 
     res = api.countries(limit=10000, df=True)
     
-    print (res)
+    print (res.head())
 
 
 .. parsed-literal::
 
-        cities code     count  locations  \
-    0        2   AD     13595          3   
-    1        1   AR     14976          4   
-    2       18   AU   3244816         98   
-    3       16   AT   1521351        306   
-    4        1   BH     13808          1   
-    5        1   BD     16085          2   
-    6       14   BE   1204035        191   
-    7        8   BA    678241         17   
-    8       72   BR   2812094        119   
-    9       11   CA   2126036        165   
-    10     138   CL   4225918        113   
-    11      21   CN    315690         74   
-    12       1   CO     14775          1   
-    13      16   HR    235285         49   
-    14      15   CZ   1173536        199   
-    15       7   DK    173235         25   
-    16       1   ET     20253          2   
-    17      35   FI    535771        107   
-    18     134   FR   6243805       1170   
-    19      36   DE   6603859       1026   
-    20       1   GH      1595         11   
-    21       2   GI     32910          6   
-    22       9   HK     37172         16   
-    23      14   HU    418855         50   
-    24      62   IN   6959673        171   
-    25       2   ID     36339          3   
-    26       9   IE     81083         24   
-    27      14   IL  52046055        136   
-    28      45   IT    447993        104   
-    29       1   XK     14208          1   
-    ..     ...  ...       ...        ...   
-    34      16   MK    312961         30   
-    35       4   MT     37251          4   
-    36       5   MX   1794518         95   
-    37      25   MN   2097585         40   
-    38       1   NP     23837          4   
-    39      68   NL   5033365        112   
-    40       1   NG      2541          1   
-    41      31   NO   1074467         69   
-    42       1   PE    433262         11   
-    43       1   PH       958          1   
-    44      10   PL    547921         16   
-    45      15   PT    135536         60   
-    46       1   RU    187117         49   
-    47       4   RS     12194          5   
-    48       1   SG      1275          1   
-    49       8   SK    310143         38   
-    50       8   SI     22749          8   
-    51       1   ZA    160479         11   
-    52     115   ES   7833242       1066   
-    53       1   LK      2077          1   
-    54       3   SE    186898         13   
-    55      14   CH    217086         24   
-    56      30   TW   2743227         77   
-    57      33   TH   2595133         63   
-    58      40   TR   3611182        138   
-    59       1   UG      6651          1   
-    60       1   AE       471          1   
-    61     112   GB   5142316        162   
-    62     744   US  27605963       1930   
-    63       2   VN     33064          3   
-    
-                                              name  
-    0                                      Andorra  
-    1                                    Argentina  
-    2                                    Australia  
-    3                                      Austria  
-    4                                      Bahrain  
-    5                                   Bangladesh  
-    6                                      Belgium  
-    7                       Bosnia and Herzegovina  
-    8                                       Brazil  
-    9                                       Canada  
-    10                                       Chile  
-    11                                       China  
-    12                                    Colombia  
-    13                                     Croatia  
-    14                              Czech Republic  
-    15                                     Denmark  
-    16                                    Ethiopia  
-    17                                     Finland  
-    18                                      France  
-    19                                     Germany  
-    20                                       Ghana  
-    21                                   Gibraltar  
-    22                                   Hong Kong  
-    23                                     Hungary  
-    24                                       India  
-    25                                   Indonesia  
-    26                                     Ireland  
-    27                                      Israel  
-    28                                       Italy  
-    29                                      Kosovo  
-    ..                                         ...  
-    34  Macedonia, the Former Yugoslav Republic of  
-    35                                       Malta  
-    36                                      Mexico  
-    37                                    Mongolia  
-    38                                       Nepal  
-    39                                 Netherlands  
-    40                                     Nigeria  
-    41                                      Norway  
-    42                                        Peru  
-    43                                 Philippines  
-    44                                      Poland  
-    45                                    Portugal  
-    46                          Russian Federation  
-    47                                      Serbia  
-    48                                   Singapore  
-    49                                    Slovakia  
-    50                                    Slovenia  
-    51                                South Africa  
-    52                                       Spain  
-    53                                   Sri Lanka  
-    54                                      Sweden  
-    55                                 Switzerland  
-    56                   Taiwan, Province of China  
-    57                                    Thailand  
-    58                                      Turkey  
-    59                                      Uganda  
-    60                        United Arab Emirates  
-    61                              United Kingdom  
-    62                               United States  
-    63                                    Viet Nam  
-    
-    [64 rows x 5 columns]
+       cities code    count  locations       name
+    0       2   AD    13638          3    Andorra
+    1       1   AR    14976          4  Argentina
+    2      18   AU  3248142         99  Australia
+    3      16   AT  1521351        306    Austria
+    4       1   BH    13820          1    Bahrain
 
 
 Fetches
@@ -377,12 +259,21 @@ Otherwise, here is how you can access the json-formatted data:
     status, resp = api.fetches(limit=1)
     
     # Print out the meta info
-    print (resp['meta'])
+    resp['meta']
+
+
 
 
 .. parsed-literal::
 
-    {'name': 'openaq-api', 'license': 'CC BY 4.0', 'website': 'https://docs.openaq.org/', 'page': 1, 'limit': 1, 'found': 92463, 'pages': 92463}
+    {'found': 92506,
+     'license': 'CC BY 4.0',
+     'limit': 1,
+     'name': 'openaq-api',
+     'page': 1,
+     'pages': 92506,
+     'website': 'https://docs.openaq.org/'}
+
 
 
 Parameters
@@ -503,12 +394,12 @@ Let’s see what the data looks like:
     city                                  Ulaanbaatar
     coordinates.latitude                      47.9329
     coordinates.longitude                     106.921
-    count                                      294622
+    count                                      294682
     country                                        MN
     firstUpdated                  2015-09-01 00:00:00
-    lastUpdated                   2018-01-23 00:15:00
+    lastUpdated                   2018-01-24 13:15:00
     location                                  100 ail
-    parameters               [no2, so2, o3, pm10, co]
+    parameters               [pm10, no2, so2, o3, co]
     sourceName                               Agaar.mn
     sourceNames                            [Agaar.mn]
     Name: 0, dtype: object
@@ -534,10 +425,11 @@ What if we just want to grab the locations in Delhi?
     coordinates.longitude                           77.3152
     count                                            102326
     country                                              IN
+    distance                                    6.32199e+06
     firstUpdated                        2015-06-29 14:30:00
     lastUpdated                         2017-11-28 10:15:00
     location                                    Anand Vihar
-    parameters               [pm10, so2, co, no2, o3, pm25]
+    parameters               [pm10, pm25, so2, o3, co, no2]
     sourceName                                         CPCB
     sourceNames                         [Anand Vihar, CPCB]
     Name: 0, dtype: object
@@ -563,13 +455,12 @@ What about just figuring out which locations in Delhi have
     coordinates.longitude                77.3152
     count                                  23891
     country                                   IN
-    distance                         1.19047e+07
     firstUpdated             2015-06-29 14:30:00
     lastUpdated              2017-11-28 10:15:00
     location                         Anand Vihar
     parameters                            [pm25]
     sourceName                              CPCB
-    sourceNames              [Anand Vihar, CPCB]
+    sourceNames              [CPCB, Anand Vihar]
     Name: 0, dtype: object
 
 
@@ -585,7 +476,7 @@ What was the most recent :math:`PM_{2.5}` data in Delhi?
 
     res = api.latest(city='Delhi', parameter='pm25', df=True)
     
-    res
+    res.head()
 
 
 
@@ -647,7 +538,7 @@ What was the most recent :math:`PM_{2.5}` data in Delhi?
           <td>70.00</td>
         </tr>
         <tr>
-          <th>2018-01-22 05:45:00</th>
+          <th>2018-01-24 09:45:00</th>
           <td>hours</td>
           <td>0.25</td>
           <td>Delhi</td>
@@ -656,10 +547,10 @@ What was the most recent :math:`PM_{2.5}` data in Delhi?
           <td>pm25</td>
           <td>CPCB</td>
           <td>µg/m³</td>
-          <td>229.00</td>
+          <td>160.00</td>
         </tr>
         <tr>
-          <th>2018-01-24 00:00:00</th>
+          <th>2018-01-24 01:15:00</th>
           <td>hours</td>
           <td>0.25</td>
           <td>Delhi</td>
@@ -668,10 +559,10 @@ What was the most recent :math:`PM_{2.5}` data in Delhi?
           <td>pm25</td>
           <td>CPCB</td>
           <td>µg/m³</td>
-          <td>113.89</td>
+          <td>192.84</td>
         </tr>
         <tr>
-          <th>2018-01-24 00:00:00</th>
+          <th>2018-01-24 01:15:00</th>
           <td>hours</td>
           <td>0.25</td>
           <td>Delhi</td>
@@ -680,10 +571,10 @@ What was the most recent :math:`PM_{2.5}` data in Delhi?
           <td>pm25</td>
           <td>CPCB</td>
           <td>µg/m³</td>
-          <td>128.44</td>
+          <td>53.45</td>
         </tr>
         <tr>
-          <th>2018-01-24 00:00:00</th>
+          <th>2018-01-24 01:15:00</th>
           <td>hours</td>
           <td>0.25</td>
           <td>Delhi</td>
@@ -692,331 +583,7 @@ What was the most recent :math:`PM_{2.5}` data in Delhi?
           <td>pm25</td>
           <td>CPCB</td>
           <td>µg/m³</td>
-          <td>159.98</td>
-        </tr>
-        <tr>
-          <th>2015-07-10 08:15:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>Civil Lines</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>48.99</td>
-        </tr>
-        <tr>
-          <th>2017-11-28 10:00:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>Delhi Technological University</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>76.00</td>
-        </tr>
-        <tr>
-          <th>2018-01-24 01:00:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>Delhi Technological University, Delhi - CPCB</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>97.00</td>
-        </tr>
-        <tr>
-          <th>2015-07-10 06:30:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>IGI Airport</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>56.82</td>
-        </tr>
-        <tr>
-          <th>2018-01-23 06:30:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>IGI Airport Terminal-3, Delhi - IMD</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>106.16</td>
-        </tr>
-        <tr>
-          <th>2017-11-28 10:15:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>IHBAS</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>70.80</td>
-        </tr>
-        <tr>
-          <th>2018-01-24 00:45:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>IHBAS, Delhi - CPCB</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>68.80</td>
-        </tr>
-        <tr>
-          <th>2017-11-28 09:45:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>Income Tax Office</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>60.00</td>
-        </tr>
-        <tr>
-          <th>2018-01-24 00:45:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>Income Tax Office, Delhi - CPCB</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>211.00</td>
-        </tr>
-        <tr>
-          <th>2018-01-23 10:00:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>Lodhi Road, Delhi - IMD</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>127.26</td>
-        </tr>
-        <tr>
-          <th>2017-11-28 08:30:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>Mandir Marg</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>93.00</td>
-        </tr>
-        <tr>
-          <th>2018-01-23 04:30:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>Mandir Marg, Delhi - DPCC</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>155.00</td>
-        </tr>
-        <tr>
-          <th>2017-11-28 10:30:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>NSIT Dwarka</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>87.70</td>
-        </tr>
-        <tr>
-          <th>2018-01-24 01:00:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>NSIT Dwarka, Delhi - CPCB</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>173.40</td>
-        </tr>
-        <tr>
-          <th>2018-01-24 00:00:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>North Campus, Delhi - IMD</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>180.27</td>
-        </tr>
-        <tr>
-          <th>2017-11-27 08:15:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>Punjabi Bagh</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>231.00</td>
-        </tr>
-        <tr>
-          <th>2018-01-22 05:30:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>Punjabi Bagh, Delhi - DPCC</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>237.00</td>
-        </tr>
-        <tr>
-          <th>2018-01-24 00:00:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>Pusa, Delhi - IMD</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>91.75</td>
-        </tr>
-        <tr>
-          <th>2017-11-07 07:45:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>Pusa2 IMD</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>361.89</td>
-        </tr>
-        <tr>
-          <th>2017-11-28 10:15:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>R K Puram</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>75.00</td>
-        </tr>
-        <tr>
-          <th>2018-01-22 05:30:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>R K Puram, Delhi - DPCC</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>289.00</td>
-        </tr>
-        <tr>
-          <th>2016-03-22 00:10:00</th>
-          <td>NaN</td>
-          <td>NaN</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>RK Puram</td>
-          <td>pm25</td>
-          <td>RK Puram</td>
-          <td>µg/m³</td>
-          <td>17.00</td>
-        </tr>
-        <tr>
-          <th>2017-11-28 09:45:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>Shadipur</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>72.50</td>
-        </tr>
-        <tr>
-          <th>2018-01-24 00:45:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>Shadipur, Delhi - CPCB</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>115.50</td>
-        </tr>
-        <tr>
-          <th>2017-11-28 10:30:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>Siri Fort</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>61.00</td>
-        </tr>
-        <tr>
-          <th>2018-01-24 00:45:00</th>
-          <td>hours</td>
-          <td>0.25</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>Sirifort, Delhi - CPCB</td>
-          <td>pm25</td>
-          <td>CPCB</td>
-          <td>µg/m³</td>
-          <td>168.00</td>
-        </tr>
-        <tr>
-          <th>2018-01-24 00:30:00</th>
-          <td>hours</td>
-          <td>1.00</td>
-          <td>Delhi</td>
-          <td>IN</td>
-          <td>US Diplomatic Post: New Delhi</td>
-          <td>pm25</td>
-          <td>StateAir_NewDelhi</td>
-          <td>µg/m³</td>
-          <td>156.00</td>
+          <td>185.60</td>
         </tr>
       </tbody>
     </table>
@@ -1080,7 +647,7 @@ What about the most recent :math:`SO_2` data in Hawii?
       </thead>
       <tbody>
         <tr>
-          <th>2018-01-23 09:00:00</th>
+          <th>2018-01-24 06:00:00</th>
           <td>hours</td>
           <td>1</td>
           <td>Hilo</td>
@@ -1092,7 +659,7 @@ What about the most recent :math:`SO_2` data in Hawii?
           <td>0.000</td>
         </tr>
         <tr>
-          <th>2018-01-23 09:00:00</th>
+          <th>2018-01-24 06:00:00</th>
           <td>hours</td>
           <td>1</td>
           <td>Hilo</td>
@@ -1101,10 +668,10 @@ What about the most recent :math:`SO_2` data in Hawii?
           <td>so2</td>
           <td>AirNow</td>
           <td>ppm</td>
-          <td>0.002</td>
+          <td>0.001</td>
         </tr>
         <tr>
-          <th>2018-01-23 09:00:00</th>
+          <th>2018-01-24 06:00:00</th>
           <td>hours</td>
           <td>1</td>
           <td>Hilo</td>
@@ -1116,7 +683,7 @@ What about the most recent :math:`SO_2` data in Hawii?
           <td>0.003</td>
         </tr>
         <tr>
-          <th>2018-01-23 09:00:00</th>
+          <th>2018-01-24 06:00:00</th>
           <td>hours</td>
           <td>1</td>
           <td>Hilo</td>
@@ -1125,10 +692,10 @@ What about the most recent :math:`SO_2` data in Hawii?
           <td>so2</td>
           <td>AirNow</td>
           <td>ppm</td>
-          <td>0.005</td>
+          <td>0.002</td>
         </tr>
         <tr>
-          <th>2018-01-23 09:00:00</th>
+          <th>2018-01-24 06:00:00</th>
           <td>hours</td>
           <td>1</td>
           <td>Hilo</td>
@@ -1137,7 +704,7 @@ What about the most recent :math:`SO_2` data in Hawii?
           <td>so2</td>
           <td>AirNow</td>
           <td>ppm</td>
-          <td>0.026</td>
+          <td>0.021</td>
         </tr>
         <tr>
           <th>2017-01-26 17:00:00</th>
@@ -1220,200 +787,200 @@ Let’s grab the past 10000 data points for :math:`PM_{2.5}` in Delhi:
       <tbody>
         <tr>
           <th>Anand Vihar, Delhi - DPCC</th>
-          <td>446.0</td>
-          <td>254.298206</td>
-          <td>147.131321</td>
+          <td>430.0</td>
+          <td>259.625581</td>
+          <td>147.207770</td>
           <td>49.00</td>
-          <td>120.0000</td>
+          <td>127.0000</td>
           <td>217.000</td>
-          <td>342.0000</td>
+          <td>345.0000</td>
           <td>644.00</td>
         </tr>
         <tr>
           <th>Aya Nagar, Delhi - IMD</th>
-          <td>378.0</td>
-          <td>148.879312</td>
-          <td>63.427033</td>
+          <td>372.0</td>
+          <td>149.792312</td>
+          <td>63.647824</td>
           <td>3.00</td>
-          <td>105.1750</td>
-          <td>133.245</td>
-          <td>183.5350</td>
+          <td>106.8725</td>
+          <td>133.675</td>
+          <td>185.5775</td>
           <td>362.89</td>
         </tr>
         <tr>
           <th>Burari Crossing, Delhi - IMD</th>
-          <td>369.0</td>
-          <td>129.967073</td>
-          <td>54.271662</td>
+          <td>363.0</td>
+          <td>130.473774</td>
+          <td>54.497222</td>
           <td>41.82</td>
-          <td>91.9400</td>
-          <td>119.160</td>
-          <td>156.2400</td>
+          <td>92.0150</td>
+          <td>119.260</td>
+          <td>157.5000</td>
           <td>333.67</td>
         </tr>
         <tr>
           <th>CRRI Mathura Road, Delhi - IMD</th>
-          <td>367.0</td>
-          <td>154.653460</td>
-          <td>105.441840</td>
+          <td>361.0</td>
+          <td>154.678227</td>
+          <td>106.200845</td>
           <td>2.22</td>
-          <td>81.4250</td>
+          <td>80.3300</td>
           <td>141.950</td>
-          <td>198.3250</td>
+          <td>200.2300</td>
           <td>842.68</td>
         </tr>
         <tr>
           <th>Delhi Technological University, Delhi - CPCB</th>
-          <td>1080.0</td>
-          <td>300.384259</td>
-          <td>153.859322</td>
+          <td>1095.0</td>
+          <td>297.557991</td>
+          <td>154.132360</td>
           <td>59.00</td>
-          <td>178.0000</td>
-          <td>290.500</td>
-          <td>401.2500</td>
+          <td>167.5000</td>
+          <td>286.000</td>
+          <td>401.0000</td>
           <td>764.00</td>
         </tr>
         <tr>
           <th>IGI Airport Terminal-3, Delhi - IMD</th>
-          <td>368.0</td>
-          <td>150.463397</td>
-          <td>73.579715</td>
+          <td>361.0</td>
+          <td>151.609806</td>
+          <td>73.086274</td>
           <td>5.62</td>
-          <td>93.7000</td>
-          <td>143.065</td>
-          <td>199.9500</td>
+          <td>95.0700</td>
+          <td>143.700</td>
+          <td>200.3100</td>
           <td>375.96</td>
         </tr>
         <tr>
           <th>IHBAS, Delhi - CPCB</th>
-          <td>914.0</td>
-          <td>123.385120</td>
-          <td>45.172724</td>
+          <td>922.0</td>
+          <td>122.903471</td>
+          <td>45.207670</td>
           <td>0.00</td>
-          <td>90.6750</td>
-          <td>118.800</td>
-          <td>148.0000</td>
+          <td>88.9000</td>
+          <td>118.400</td>
+          <td>147.4000</td>
           <td>308.30</td>
         </tr>
         <tr>
           <th>Income Tax Office, Delhi - CPCB</th>
-          <td>1082.0</td>
-          <td>211.280037</td>
-          <td>94.686591</td>
+          <td>1095.0</td>
+          <td>210.021918</td>
+          <td>94.767962</td>
           <td>0.00</td>
-          <td>142.0000</td>
-          <td>192.000</td>
-          <td>279.0000</td>
+          <td>141.5000</td>
+          <td>190.000</td>
+          <td>277.5000</td>
           <td>477.00</td>
         </tr>
         <tr>
           <th>Lodhi Road, Delhi - IMD</th>
-          <td>346.0</td>
-          <td>158.473353</td>
-          <td>72.711477</td>
+          <td>339.0</td>
+          <td>160.147699</td>
+          <td>72.395593</td>
           <td>9.69</td>
-          <td>103.5275</td>
-          <td>149.980</td>
-          <td>206.5425</td>
+          <td>107.4550</td>
+          <td>151.380</td>
+          <td>208.2750</td>
           <td>383.10</td>
         </tr>
         <tr>
           <th>Mandir Marg, Delhi - DPCC</th>
-          <td>273.0</td>
-          <td>194.875458</td>
-          <td>88.817554</td>
+          <td>264.0</td>
+          <td>198.306818</td>
+          <td>87.983323</td>
           <td>42.00</td>
-          <td>125.0000</td>
-          <td>182.000</td>
+          <td>132.0000</td>
+          <td>186.000</td>
           <td>254.0000</td>
           <td>443.00</td>
         </tr>
         <tr>
           <th>NSIT Dwarka, Delhi - CPCB</th>
-          <td>1014.0</td>
-          <td>219.460059</td>
-          <td>81.344030</td>
+          <td>1030.0</td>
+          <td>217.039612</td>
+          <td>82.230388</td>
           <td>0.00</td>
-          <td>159.4750</td>
-          <td>200.900</td>
-          <td>263.0000</td>
+          <td>155.9250</td>
+          <td>197.600</td>
+          <td>262.2000</td>
           <td>527.10</td>
         </tr>
         <tr>
           <th>North Campus, Delhi - IMD</th>
-          <td>373.0</td>
-          <td>211.703164</td>
-          <td>112.728753</td>
+          <td>368.0</td>
+          <td>212.198560</td>
+          <td>112.838311</td>
           <td>0.41</td>
-          <td>122.8700</td>
-          <td>190.840</td>
-          <td>275.5500</td>
+          <td>123.1100</td>
+          <td>190.870</td>
+          <td>275.0175</td>
           <td>633.12</td>
         </tr>
         <tr>
           <th>Punjabi Bagh, Delhi - DPCC</th>
-          <td>330.0</td>
-          <td>224.296970</td>
-          <td>116.611439</td>
+          <td>318.0</td>
+          <td>227.411950</td>
+          <td>116.249854</td>
           <td>47.00</td>
-          <td>119.0000</td>
-          <td>206.000</td>
-          <td>310.7500</td>
+          <td>125.0000</td>
+          <td>208.500</td>
+          <td>314.0000</td>
           <td>559.00</td>
         </tr>
         <tr>
           <th>Pusa, Delhi - IMD</th>
-          <td>388.0</td>
-          <td>123.884716</td>
-          <td>58.430448</td>
+          <td>382.0</td>
+          <td>125.018351</td>
+          <td>58.187861</td>
           <td>28.51</td>
-          <td>76.2100</td>
-          <td>113.855</td>
-          <td>162.1450</td>
+          <td>77.6475</td>
+          <td>114.430</td>
+          <td>163.2325</td>
           <td>320.82</td>
         </tr>
         <tr>
           <th>R K Puram, Delhi - DPCC</th>
-          <td>408.0</td>
-          <td>206.649510</td>
-          <td>97.904091</td>
+          <td>400.0</td>
+          <td>208.190000</td>
+          <td>98.169711</td>
           <td>64.00</td>
-          <td>138.0000</td>
-          <td>186.000</td>
-          <td>243.0000</td>
+          <td>139.0000</td>
+          <td>188.000</td>
+          <td>245.7500</td>
           <td>593.00</td>
         </tr>
         <tr>
           <th>Shadipur, Delhi - CPCB</th>
-          <td>1045.0</td>
-          <td>165.936364</td>
-          <td>104.330173</td>
+          <td>1055.0</td>
+          <td>165.118104</td>
+          <td>104.136933</td>
           <td>0.20</td>
-          <td>94.7000</td>
-          <td>139.500</td>
-          <td>215.1000</td>
+          <td>94.5000</td>
+          <td>139.000</td>
+          <td>214.8500</td>
           <td>798.70</td>
         </tr>
         <tr>
           <th>Sirifort, Delhi - CPCB</th>
-          <td>419.0</td>
-          <td>214.608592</td>
-          <td>100.762545</td>
+          <td>439.0</td>
+          <td>213.398633</td>
+          <td>98.462672</td>
           <td>0.00</td>
-          <td>143.0000</td>
-          <td>196.000</td>
-          <td>280.5000</td>
+          <td>145.5000</td>
+          <td>195.000</td>
+          <td>277.5000</td>
           <td>979.00</td>
         </tr>
         <tr>
           <th>US Diplomatic Post: New Delhi</th>
-          <td>400.0</td>
-          <td>212.585000</td>
-          <td>140.584326</td>
+          <td>406.0</td>
+          <td>213.339901</td>
+          <td>139.081139</td>
           <td>-999.00</td>
-          <td>141.5000</td>
+          <td>144.0000</td>
           <td>202.000</td>
-          <td>271.5000</td>
+          <td>269.7500</td>
           <td>1985.00</td>
         </tr>
       </tbody>
@@ -1427,17 +994,20 @@ go ahead and plot all of these locations on a figure.
 
 .. code:: ipython3
 
-    fig, ax = plt.subplots(1, figsize=(14, 7))
+    fig, ax = plt.subplots(1, figsize=(10, 6))
     
     for group, df in res.groupby('location'):
         # Query the data to only get positive values and resample to hourly
         _df = df.query("value >= 0.0").resample('1h').mean()
         
-        ax.plot(_df.value, label=group)
+        _df.value.plot(ax=ax, label=group)
         
     ax.legend(loc='best')
-    
+    ax.set_ylabel("$PM_{2.5}$  [$\mu g m^{-3}$]", fontsize=20)
+    ax.set_xlabel("")
     sns.despine(offset=5)
+    
+    plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
     
     plt.show()
 
@@ -1463,7 +1033,7 @@ sensors. This is the same data as above, but viewed in a different way.
         palette='deep',
         ax=ax)
     
-    ax.set_ylim([0, 300])
+    ax.set_ylim([0, 750])
     ax.set_ylabel("$PM_{2.5}\;[\mu gm^{-3}]$", fontsize=18)
     ax.set_xlabel("")
     
@@ -1483,7 +1053,7 @@ see if there is any correlation among parameters!
 
 .. code:: ipython3
 
-    res = api.measurements(city='Delhi', location='Anand Vihar', limit=10000, df=True)
+    res = api.measurements(city='Delhi', location='Anand Vihar', limit=1000, df=True)
     
     # Which params do we have?
     res.parameter.unique()
@@ -1493,7 +1063,7 @@ see if there is any correlation among parameters!
 
 .. parsed-literal::
 
-    array(['o3', 'no2', 'pm10', 'so2', 'pm25'], dtype=object)
+    array(['o3', 'no2', 'so2', 'pm10', 'pm25'], dtype=object)
 
 
 
@@ -1582,57 +1152,57 @@ huge :math:`SO_2` problem?
       <tbody>
         <tr>
           <th>Hawaii Volcanoes NP</th>
-          <td>352.0</td>
-          <td>0.007455</td>
-          <td>0.035482</td>
+          <td>355.0</td>
+          <td>0.007392</td>
+          <td>0.035338</td>
           <td>0.000</td>
           <td>0.000</td>
           <td>0.000</td>
-          <td>0.0000</td>
+          <td>0.000</td>
           <td>0.408</td>
         </tr>
         <tr>
           <th>Hilo</th>
-          <td>435.0</td>
-          <td>0.002492</td>
-          <td>0.004502</td>
+          <td>438.0</td>
+          <td>0.002486</td>
+          <td>0.004487</td>
           <td>0.000</td>
           <td>0.001</td>
           <td>0.001</td>
-          <td>0.0020</td>
+          <td>0.002</td>
           <td>0.050</td>
         </tr>
         <tr>
           <th>Kona</th>
-          <td>447.0</td>
-          <td>0.003268</td>
-          <td>0.004278</td>
+          <td>450.0</td>
+          <td>0.003273</td>
+          <td>0.004264</td>
           <td>0.001</td>
           <td>0.001</td>
           <td>0.002</td>
-          <td>0.0040</td>
+          <td>0.004</td>
           <td>0.039</td>
         </tr>
         <tr>
           <th>Ocean View</th>
-          <td>452.0</td>
-          <td>0.011440</td>
-          <td>0.021785</td>
+          <td>455.0</td>
+          <td>0.011490</td>
+          <td>0.021762</td>
           <td>0.000</td>
           <td>0.001</td>
           <td>0.004</td>
-          <td>0.0110</td>
+          <td>0.011</td>
           <td>0.182</td>
         </tr>
         <tr>
           <th>Pahala</th>
-          <td>419.0</td>
-          <td>0.039153</td>
-          <td>0.070539</td>
+          <td>422.0</td>
+          <td>0.039166</td>
+          <td>0.070299</td>
           <td>0.000</td>
           <td>0.004</td>
           <td>0.010</td>
-          <td>0.0395</td>
+          <td>0.040</td>
           <td>0.554</td>
         </tr>
       </tbody>
@@ -1643,17 +1213,21 @@ huge :math:`SO_2` problem?
 
 .. code:: ipython3
 
-    fig, ax = plt.subplots(1, figsize=(14, 7))
+    fig, ax = plt.subplots(1, figsize=(10, 5))
     
     for group, df in res.groupby('location'):
         # Query the data to only get positive values and resample to hourly
-        _df = df.query("value >= 0.0").resample('1h').mean()
+        _df = df.query("value >= 0.0").resample('6h').mean()
+        
+        # Convert from ppm to ppb
+        _df['value'] *= 1e3
         
         # Multiply the value by 1000 to get from ppm to ppb
-        ax.plot(_df.value * 1000., label=group)
+        _df.value.plot(ax=ax, label=group)
         
     ax.legend(loc='best')
     ax.set_ylabel("$SO_2 \; [ppb]$", fontsize=18)
+    ax.set_xlabel("")
     
     sns.despine(offset=5)
     
@@ -1664,5 +1238,5 @@ huge :math:`SO_2` problem?
 .. image:: api_files/api_42_0.png
 
 
-**NOTE:** These values are for 1h means. The local readings can actually
+**NOTE:** These values are for 6h means. The local readings can actually
 get much, much higher (>5 ppm!) when looking at 1min data.

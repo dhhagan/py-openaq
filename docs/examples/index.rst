@@ -65,8 +65,53 @@ Example gallery
 .. toctree::
    :hidden:
 
+   ./pm25_histogram_delhi
+
+   ./pm25_vs_pm10_distribution
+
+   ./pollution_outlook_delhi
+
    ./hawaii_ts_plot
 
+
+
+
+.. raw:: html
+
+    <div class='figure align-center'>
+    <a href=./pm25_histogram_delhi.html>
+    <img src=../_static/pm25_histogram_delhi_thumb.png>
+    <span class='figure-label'>
+    <p></p>
+    </span>
+    </a>
+    </div>
+
+
+
+.. raw:: html
+
+    <div class='figure align-center'>
+    <a href=./pm25_vs_pm10_distribution.html>
+    <img src=../_static/pm25_vs_pm10_distribution_thumb.png>
+    <span class='figure-label'>
+    <p></p>
+    </span>
+    </a>
+    </div>
+
+
+
+.. raw:: html
+
+    <div class='figure align-center'>
+    <a href=./pollution_outlook_delhi.html>
+    <img src=../_static/pollution_outlook_delhi_thumb.png>
+    <span class='figure-label'>
+    <p></p>
+    </span>
+    </a>
+    </div>
 
 
 
