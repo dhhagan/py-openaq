@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>openaq.OpenAQ.sources &#8212; py-openaq 1.1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="openaq.utils.mass_to_mix" href="openaq.utils.mass_to_mix.html" />
+    <link rel="prev" title="openaq.OpenAQ.parameters" href="openaq.OpenAQ.parameters.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          py-openaq</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.1.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../tutorial.html">Tutorial</a></li>
+                <li><a href="../examples/index.html">Gallery</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Getting Started and Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">py-openaq Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Example gallery</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">openaq.OpenAQ.sources</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="openaq-openaq-sources">
+<h1>openaq.OpenAQ.sources<a class="headerlink" href="#openaq-openaq-sources" title="Permalink to this headline">¶</a></h1>
+<dl class="method">
+<dt id="openaq.OpenAQ.sources">
+<code class="descclassname">OpenAQ.</code><code class="descname">sources</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/openaq.html#OpenAQ.sources"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openaq.OpenAQ.sources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides a list of data sources.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>order_by</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a><em> or </em><em>list</em>) – order by one or more fields (ex. order_by=[‘active’, ‘country’]). Default value is ‘country’</li>
+<li><strong>sort</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) – define the sort order for one or more fields (ex. sort=’desc’)</li>
+<li><strong>limit</strong> (<em>number</em>) – Change the number of results returned.</li>
+<li><strong>page</strong> (<em>number</em>) – Paginate through the results</li>
+<li><strong>df</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – return the results as a pandas DataFrame</li>
+<li><strong>index</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) – if returning as a DataFrame, set index to (‘utc’, ‘local’, None). The default is local</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a dictionary containing the <em>url</em>, <em>adapter</em>, <em>name</em>, <em>city</em>,
+<em>country</em>, <em>description</em>, <em>resolution</em>, <em>sourceURL</em>, <em>contacts</em>, and <em>active</em>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">openaq</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span> <span class="o">=</span> <span class="n">openaq</span><span class="o">.</span><span class="n">OpenAQ</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">status</span><span class="p">,</span> <span class="n">resp</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">sources</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resp</span><span class="p">[</span><span class="s1">&#39;results&#39;</span><span class="p">]</span>
+<span class="go">[</span>
+<span class="go">    {</span>
+<span class="go">        &quot;url&quot;: &quot;http://airquality.environment.nsw.gov.au/aquisnetnswphp/getPage.php?reportid=2&quot;,</span>
+<span class="go">        &quot;adapter&quot;: &quot;nsw&quot;,</span>
+<span class="go">        &quot;name&quot;: &quot;Australia - New South Wales&quot;,</span>
+<span class="go">        &quot;city&quot;: &quot;&quot;,</span>
+<span class="go">        &quot;country&quot;: &quot;AU&quot;,</span>
+<span class="go">        &quot;description&quot;: &quot;Measurements from the Office of Environment &amp; Heritage of the New South Wales government.&quot;,</span>
+<span class="go">        &quot;resolution&quot;: &quot;1 hr&quot;,</span>
+<span class="go">        &quot;sourceURL&quot;: &quot;http://www.environment.nsw.gov.au/AQMS/hourlydata.htm&quot;,</span>
+<span class="go">        &quot;contacts&quot;: [</span>
+<span class="go">            &quot;olaf@developmentseed.org&quot;</span>
+<span class="go">        ]</span>
+<span class="go">    }</span>
+<span class="go">    ...</span>
+<span class="go">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/generated/openaq.OpenAQ.sources.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, David H Hagan.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

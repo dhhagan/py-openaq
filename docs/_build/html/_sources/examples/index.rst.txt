@@ -1,0 +1,134 @@
+
+.. raw:: html
+
+    <style type="text/css">
+    .figure {
+        position: relative;
+        float: left;
+        margin: 10px;
+        width: 180px;
+        height: 200px;
+    }
+    .figure img {
+        position: absolute;
+        display: inline;
+        left: 0;
+        width: 170px;
+        height: 170px;
+        opacity:1.0;
+        filter:alpha(opacity=100); /* For IE8 and earlier */
+    }
+    .figure:hover img {
+        -webkit-filter: blur(3px);
+        -moz-filter: blur(3px);
+        -o-filter: blur(3px);
+        -ms-filter: blur(3px);
+        filter: blur(3px);
+        opacity:1.0;
+        filter:alpha(opacity=100); /* For IE8 and earlier */
+    }
+    .figure span {
+        position: absolute;
+        display: inline;
+        left: 0;
+        width: 170px;
+        height: 170px;
+        background: #000;
+        color: #fff;
+        visibility: hidden;
+        opacity: 0;
+        z-index: 100;
+    }
+    .figure p {
+        position: absolute;
+        top: 45%;
+        width: 170px;
+        font-size: 110%;
+    }
+    .figure:hover span {
+        visibility: visible;
+        opacity: .4;
+    }
+    .caption {
+        position: absolue;
+        width: 180px;
+        top: 170px;
+        text-align: center !important;
+    }
+    </style>
+.. _example_gallery:
+
+Example gallery
+===============
+
+
+.. toctree::
+   :hidden:
+
+   ./pm25_histogram_delhi
+
+   ./pm25_vs_pm10_distribution
+
+   ./pollution_outlook_delhi
+
+   ./hawaii_ts_plot
+
+
+
+
+.. raw:: html
+
+    <div class='figure align-center'>
+    <a href=./pm25_histogram_delhi.html>
+    <img src=../_static/pm25_histogram_delhi_thumb.png>
+    <span class='figure-label'>
+    <p></p>
+    </span>
+    </a>
+    </div>
+
+
+
+.. raw:: html
+
+    <div class='figure align-center'>
+    <a href=./pm25_vs_pm10_distribution.html>
+    <img src=../_static/pm25_vs_pm10_distribution_thumb.png>
+    <span class='figure-label'>
+    <p></p>
+    </span>
+    </a>
+    </div>
+
+
+
+.. raw:: html
+
+    <div class='figure align-center'>
+    <a href=./pollution_outlook_delhi.html>
+    <img src=../_static/pollution_outlook_delhi_thumb.png>
+    <span class='figure-label'>
+    <p></p>
+    </span>
+    </a>
+    </div>
+
+
+
+.. raw:: html
+
+    <div class='figure align-center'>
+    <a href=./hawaii_ts_plot.html>
+    <img src=../_static/hawaii_ts_plot_thumb.png>
+    <span class='figure-label'>
+    <p></p>
+    </span>
+    </a>
+    </div>
+
+
+
+
+.. raw:: html
+
+    <div style="clear: both"></div>

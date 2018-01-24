@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Getting Started and Installation &#8212; py-openaq 1.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api.html" />
+    <link rel="prev" title="py-openaq: open air quality data" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          py-openaq</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.1.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="api.html">API</a></li>
+                <li><a href="tutorial.html">Tutorial</a></li>
+                <li><a href="examples/index.html">Gallery</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">py-openaq Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Example gallery</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Getting Started and Installation</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#requirements">Requirements</a><ul>
+<li><a class="reference internal" href="#mandatory">Mandatory</a></li>
+<li><a class="reference internal" href="#recommended">Recommended</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#current-limitations">Current Limitations</a></li>
+<li><a class="reference internal" href="#initialization">Initialization</a></li>
+<li><a class="reference internal" href="#understanding-the-response-format">Understanding the Response format</a></li>
+<li><a class="reference internal" href="#coupling-with-pandas-dataframe">Coupling with Pandas DataFrame</a></li>
+<li><a class="reference internal" href="#testing">Testing</a></li>
+<li><a class="reference internal" href="#bugs-and-issues">Bugs and Issues</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="getting-started-and-installation">
+<span id="installing"></span><h1>Getting Started and Installation<a class="headerlink" href="#getting-started-and-installation" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal"><span class="pre">py-openaq</span></code> aims to provide easy access to the OpenAQ API via a Python
+platform. To read more about OpenAQ, check out their <a class="reference external" href="https://openaq.org">website</a>.</p>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>You can install the package directly via pypi through <code class="docutils literal"><span class="pre">pip</span></code>:</p>
+<p><code class="docutils literal"><span class="pre">&gt;&gt;&gt;</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">py-openaq</span></code></p>
+<p>You can also install the most up-to-date development version directly from github
+using:</p>
+<p><code class="docutils literal"><span class="pre">&gt;&gt;&gt;</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/dhhagan/py-openaq.git</span></code></p>
+</div>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mandatory">
+<h3>Mandatory<a class="headerlink" href="#mandatory" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Python2.7 or Python3.3+</li>
+<li><a class="reference external" href="http://docs.python-requests.org/en/master/">requests</a></li>
+</ul>
+</div>
+<div class="section" id="recommended">
+<h3>Recommended<a class="headerlink" href="#recommended" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="http://pandas.pydata.org/">pandas</a></li>
+<li><a class="reference external" href="http://seaborn.pydata.org/index.html">seaborn</a></li>
+<li><a class="reference external" href="http://matplotlib.org">matplotlib</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="current-limitations">
+<h2>Current Limitations<a class="headerlink" href="#current-limitations" title="Permalink to this headline">¶</a></h2>
+<p>As of now, the only feature that is not built into the API wrapper is returning various formats
+from the <code class="docutils literal"><span class="pre">openaq.OpenAQ.measurements</span></code> call. This is because I don’t see any reason to use python
+to return a csv. If a csv is your desired output, I recommend using pandas’ <code class="docutils literal"><span class="pre">DataFrame.to_csv()</span></code> method.</p>
+</div>
+<div class="section" id="initialization">
+<h2>Initialization<a class="headerlink" href="#initialization" title="Permalink to this headline">¶</a></h2>
+<p>The following code example shows how to make your first API call:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">openaq</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">openaq</span><span class="o">.</span><span class="n">OpenAQ</span><span class="p">()</span>
+
+<span class="n">status</span><span class="p">,</span> <span class="n">resp</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">cities</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="understanding-the-response-format">
+<h2>Understanding the Response format<a class="headerlink" href="#understanding-the-response-format" title="Permalink to this headline">¶</a></h2>
+<p>Each API call will reply with a tuple containing the status code and the response
+in json format. The three most common API status codes you will see are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>200: Success</li>
+<li>40x: Error: Bad Request</li>
+<li>500: Server Error</li>
+</ul>
+</div></blockquote>
+<p>The json response will look something like the following with both <code class="docutils literal"><span class="pre">meta</span></code> and <code class="docutils literal"><span class="pre">results</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s1">&#39;meta&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;license&#39;</span><span class="p">:</span> <span class="s1">&#39;CC By 4.0&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;openaq-api&#39;</span><span class="p">,</span> <span class="s1">&#39;website&#39;</span><span class="p">:</span> <span class="s1">&#39;https://docs.openaq.org/&#39;</span><span class="p">},</span>
+<span class="s1">&#39;results&#39;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;Amsterdam&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="mi">71125</span><span class="p">,</span> <span class="s1">&#39;country&#39;</span><span class="p">:</span> <span class="s1">&#39;NL&#39;</span><span class="p">,</span> <span class="s1">&#39;locations&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;Antofagasta&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="mi">3416</span><span class="p">,</span> <span class="s1">&#39;country&#39;</span><span class="p">:</span> <span class="s1">&#39;CL&#39;</span><span class="p">,</span> <span class="s1">&#39;locations&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;Arica&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1682</span><span class="p">,</span> <span class="s1">&#39;country&#39;</span><span class="p">:</span> <span class="s1">&#39;CL&#39;</span><span class="p">,</span> <span class="s1">&#39;locations&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;Ayutthaya&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="mi">3880</span><span class="p">,</span> <span class="s1">&#39;country&#39;</span><span class="p">:</span> <span class="s1">&#39;TH&#39;</span><span class="p">,</span> <span class="s1">&#39;locations&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;Badhoevedorp&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="mi">7862</span><span class="p">,</span> <span class="s1">&#39;country&#39;</span><span class="p">:</span> <span class="s1">&#39;NL&#39;</span><span class="p">,</span> <span class="s1">&#39;locations&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+    <span class="o">...</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="coupling-with-pandas-dataframe">
+<h2>Coupling with Pandas DataFrame<a class="headerlink" href="#coupling-with-pandas-dataframe" title="Permalink to this headline">¶</a></h2>
+<p>Pandas is awesome. If you are working with data, you should be using DataFrames. To
+easily dump your json response into a DataFrame:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pandas.io.json</span> <span class="k">import</span> <span class="n">json_normalize</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">json_normalize</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As of v0.3.0, an optional keyword argument (<cite>df</cite>) has been added to the following API methods:</p>
+<blockquote>
+<div><ul class="simple">
+<li>cities</li>
+<li>countries</li>
+<li>latest</li>
+<li>locations</li>
+<li>measurements</li>
+</ul>
+</div></blockquote>
+<p>By using this keyword argument, the results of the API call will return a pandas DataFrame rather than a json response.</p>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">latest</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The results are parsed through the <cite>pandasize</cite> decorator which tries to interpret the fields in the most ideal format possible.
+Thus, all datetime fields should be converted to proper python datetimes to allow for easy splicing, manipulation, and plotting.</p>
+</div>
+<div class="section" id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<p>Testing is automated using unittests. To run the unittests with coverage
+reporting, run the following command from the main directory:</p>
+<p><code class="docutils literal"><span class="pre">&gt;&gt;&gt;</span> <span class="pre">coverage</span> <span class="pre">run</span> <span class="pre">--source</span> <span class="pre">openaq</span> <span class="pre">setup.py</span> <span class="pre">test</span></code></p>
+<p>You can then view the coverage report with:</p>
+<p><code class="docutils literal"><span class="pre">&gt;&gt;&gt;</span> <span class="pre">coverage</span> <span class="pre">report</span> <span class="pre">-m</span></code></p>
+</div>
+<div class="section" id="bugs-and-issues">
+<h2>Bugs and Issues<a class="headerlink" href="#bugs-and-issues" title="Permalink to this headline">¶</a></h2>
+<p>Please report any bugs or issues you find through the <a class="reference external" href="https://github.com/dhhagan/py-openaq/issues/new">GitHub issues tracker</a>. Please provide as much
+information as possible that will make it easier to solve/fix the problem.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="_sources/installing.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, David H Hagan.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>API Reference &#8212; py-openaq 1.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="openaq.OpenAQ" href="generated/openaq.OpenAQ.html" />
+    <link rel="prev" title="Getting Started and Installation" href="installing.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          py-openaq</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.1.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="#">API</a></li>
+                <li><a href="tutorial.html">Tutorial</a></li>
+                <li><a href="examples/index.html">Gallery</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Getting Started and Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">py-openaq Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Example gallery</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">API Reference</a><ul>
+<li><a class="reference internal" href="#the-openaq-api-wrapper">The OpenAQ API Wrapper</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#utility-functions">Utility Functions</a><ul>
+<li><a class="reference internal" href="#helpers">Helpers</a></li>
+<li><a class="reference internal" href="#visualization">Visualization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-openaq-api-wrapper">
+<span id="endpoints-api"></span><h2>The OpenAQ API Wrapper<a class="headerlink" href="#the-openaq-api-wrapper" title="Permalink to this headline">¶</a></h2>
+<p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/openaq.OpenAQ.html#openaq.OpenAQ" title="openaq.OpenAQ"><code class="xref py py-obj docutils literal"><span class="pre">openaq.OpenAQ</span></code></a>([version])</td>
+<td>Create an instance of the OpenAQ API</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/openaq.OpenAQ.cities.html#openaq.OpenAQ.cities" title="openaq.OpenAQ.cities"><code class="xref py py-obj docutils literal"><span class="pre">openaq.OpenAQ.cities</span></code></a>(**kwargs)</td>
+<td>Returns a listing of cities within the platform.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/openaq.OpenAQ.countries.html#openaq.OpenAQ.countries" title="openaq.OpenAQ.countries"><code class="xref py py-obj docutils literal"><span class="pre">openaq.OpenAQ.countries</span></code></a>(**kwargs)</td>
+<td>Returns a listing of all countries within the platform</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/openaq.OpenAQ.latest.html#openaq.OpenAQ.latest" title="openaq.OpenAQ.latest"><code class="xref py py-obj docutils literal"><span class="pre">openaq.OpenAQ.latest</span></code></a>(**kwargs)</td>
+<td>Provides the latest value of each parameter for each location</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/openaq.OpenAQ.locations.html#openaq.OpenAQ.locations" title="openaq.OpenAQ.locations"><code class="xref py py-obj docutils literal"><span class="pre">openaq.OpenAQ.locations</span></code></a>(**kwargs)</td>
+<td>Provides metadata about distinct measurement locations</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/openaq.OpenAQ.measurements.html#openaq.OpenAQ.measurements" title="openaq.OpenAQ.measurements"><code class="xref py py-obj docutils literal"><span class="pre">openaq.OpenAQ.measurements</span></code></a>(**kwargs)</td>
+<td>Provides data about individual measurements</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/openaq.OpenAQ.fetches.html#openaq.OpenAQ.fetches" title="openaq.OpenAQ.fetches"><code class="xref py py-obj docutils literal"><span class="pre">openaq.OpenAQ.fetches</span></code></a>(**kwargs)</td>
+<td>Provides data about individual fetch operations that are used to populate data in the platform.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/openaq.OpenAQ.parameters.html#openaq.OpenAQ.parameters" title="openaq.OpenAQ.parameters"><code class="xref py py-obj docutils literal"><span class="pre">openaq.OpenAQ.parameters</span></code></a>(**kwargs)</td>
+<td>Provides a simple listing of parameters within the platform.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/openaq.OpenAQ.sources.html#openaq.OpenAQ.sources" title="openaq.OpenAQ.sources"><code class="xref py py-obj docutils literal"><span class="pre">openaq.OpenAQ.sources</span></code></a>(**kwargs)</td>
+<td>Provides a list of data sources.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="utility-functions">
+<h2>Utility Functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="helpers">
+<h3>Helpers<a class="headerlink" href="#helpers" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/openaq.utils.mass_to_mix.html#openaq.utils.mass_to_mix" title="openaq.utils.mass_to_mix"><code class="xref py py-obj docutils literal"><span class="pre">openaq.utils.mass_to_mix</span></code></a>(value,&nbsp;param[,&nbsp;unit])</td>
+<td>Convert units from ug/m3 to ppb or ppm.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="visualization">
+<h3>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/openaq.viz.tsplot.html#openaq.viz.tsplot" title="openaq.viz.tsplot"><code class="xref py py-obj docutils literal"><span class="pre">openaq.viz.tsplot</span></code></a>(data[,&nbsp;time_col,&nbsp;ax,&nbsp;…])</td>
+<td>Plot a timeseries.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="_sources/api.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, David H Hagan.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

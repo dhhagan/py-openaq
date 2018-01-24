@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>openaq.OpenAQ.latest &#8212; py-openaq 1.1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="openaq.OpenAQ.locations" href="openaq.OpenAQ.locations.html" />
+    <link rel="prev" title="openaq.OpenAQ.countries" href="openaq.OpenAQ.countries.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          py-openaq</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.1.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../tutorial.html">Tutorial</a></li>
+                <li><a href="../examples/index.html">Gallery</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Getting Started and Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">py-openaq Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Example gallery</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">openaq.OpenAQ.latest</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="openaq-openaq-latest">
+<h1>openaq.OpenAQ.latest<a class="headerlink" href="#openaq-openaq-latest" title="Permalink to this headline">¶</a></h1>
+<dl class="method">
+<dt id="openaq.OpenAQ.latest">
+<code class="descclassname">OpenAQ.</code><code class="descname">latest</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/openaq.html#OpenAQ.latest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openaq.OpenAQ.latest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides the latest value of each parameter for each location</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>city</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) – limit results by a certain city. Defaults to <code class="docutils literal"><span class="pre">None</span></code>.</li>
+<li><strong>country</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) – limit results by a certain country. Should be a 2-digit
+ISO country code. Defaults to <code class="docutils literal"><span class="pre">None</span></code>.</li>
+<li><strong>location</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) – limit results by a city. Defaults to <code class="docutils literal"><span class="pre">None</span></code>.</li>
+<li><strong>parameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) – limit results by a specific parameter. Options include [
+pm25, pm10, so2, co, no2, o3, bc]</li>
+<li><strong>has_geo</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – filter items that do or do not have geographic information.</li>
+<li><strong>coordinates</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) – center point (<cite>lat</cite>, <cite>long</cite>) used to get measurements within a
+certain area. (Ex: coordinates=40.23,34.17)</li>
+<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – radius (in meters) used to get measurements. Must be used with coordinates.
+Default value is 2500.</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – change the number of results returned. Max is 10000. Default is 100.</li>
+<li><strong>page</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – paginate through the results.</li>
+<li><strong>df</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – return results as a pandas DataFrame</li>
+<li><strong>index</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) – if returning as a DataFrame, set index to (‘utc’, ‘local’, None). The default is local</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">dictionary containing the <em>location</em>, <em>country</em>, <em>city</em>, and number of <em>measurements</em></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">openaq</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span> <span class="o">=</span> <span class="n">openaq</span><span class="o">.</span><span class="n">OpenAQ</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">status</span><span class="p">,</span> <span class="n">resp</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">latest</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resp</span><span class="p">[</span><span class="s1">&#39;results&#39;</span><span class="p">]</span>
+<span class="go">[</span>
+<span class="go">    {</span>
+<span class="go">        &quot;location&quot;: &quot;Punjabi Bagh&quot;,</span>
+<span class="go">        &quot;city&quot;: &quot;Delhi&quot;,</span>
+<span class="go">        &quot;country&quot;: &quot;IN&quot;,</span>
+<span class="go">        &quot;measurements&quot;: [</span>
+<span class="go">            {</span>
+<span class="go">                &quot;parameter&quot;: &quot;so2&quot;,</span>
+<span class="go">                &quot;value&quot;: 7.8,</span>
+<span class="go">                &quot;unit&quot;: &quot;ug/m3&quot;,</span>
+<span class="go">                &quot;lastUpdated&quot;: &quot;2015-07-24T11:30:00.000Z&quot;</span>
+<span class="go">            },</span>
+<span class="go">            {</span>
+<span class="go">                &quot;parameter&quot;: &quot;co&quot;,</span>
+<span class="go">                &quot;value&quot;: 1.3,</span>
+<span class="go">                &quot;unit&quot;: &quot;mg/m3&quot;,</span>
+<span class="go">                &quot;lastUpdated&quot;: &quot;2015-07-24T11:30:00.000Z&quot;</span>
+<span class="go">            },</span>
+<span class="go">            ...</span>
+<span class="go">        ]</span>
+<span class="go">        ...</span>
+<span class="go">    }</span>
+<span class="go">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/generated/openaq.OpenAQ.latest.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, David H Hagan.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
