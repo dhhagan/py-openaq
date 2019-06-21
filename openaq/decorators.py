@@ -39,6 +39,14 @@ def pandasize():
                 if status == 200:
                     resp = resp['results']
 
+                    # Empty DataFrame when no results are returned
+                    if not resp:
+                        return pd.DataFrame(
+                            columns= ['date.local', 'city', 
+                                'coordinates.latitude', 'coordinates.longitude', 
+                                'country', 'date.utc', 'location', 
+                                'parameter', 'unit', 'value'])
+
                     if f.__name__ == 'latest':
                         d = []
                         for i in resp:
