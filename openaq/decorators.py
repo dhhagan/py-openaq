@@ -45,7 +45,7 @@ def pandasize():
                             columns= ['date.local', 'city', 
                                 'coordinates.latitude', 'coordinates.longitude', 
                                 'country', 'date.utc', 'location', 
-                                'parameter', 'unit', 'value'])
+                                'parameter', 'unit', 'value']).set_index('date.local')
 
                     if f.__name__ == 'latest':
                         d = []
