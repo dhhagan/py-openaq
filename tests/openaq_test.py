@@ -27,7 +27,7 @@ class SetupTestCase(unittest.TestCase):
         status, resp = self.api.cities(country='US', order_by='country')
         self.assertTrue(status == 200)
 
-        status, resp = self.api.cities(country='US', order_by=['country', 'locations'])
+        status, resp = self.api.cities(country='US', order_by=['country', 'city'])
         self.assertTrue(status == 200)
 
         # Test sorting
