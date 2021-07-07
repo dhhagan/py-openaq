@@ -27,7 +27,7 @@ class SetupTestCase(unittest.TestCase):
         status, resp = self.api.cities(country='US', order_by='country')
         self.assertTrue(status == 200)
 
-        status, resp = self.api.cities(country='US', order_by=['country', 'locations'])
+        status, resp = self.api.cities(country='US', order_by=['country', 'city'])
         self.assertTrue(status == 200)
 
         # Test sorting
@@ -95,9 +95,8 @@ class SetupTestCase(unittest.TestCase):
         self.assertTrue(type(resp4.index.values[0]), int)
 
     def test_fetches(self):
-        status, resp = self.api.fetches()
-
-        self.assertTrue(status == 200)
+        with self.assertRaises(openaq.exceptions.ApiError):
+            status, resp = self.api.fetches()
 
     def test_bad_request(self):
         endpoint = "http://api.openaq.org/v1/fetch"

@@ -54,7 +54,7 @@ def pandasize():
 
                             resp = d
 
-                    data = pd.io.json.json_normalize(resp)
+                    data = pd.json_normalize(resp)
 
                     # If there are any datetimes, make them datetimes!
                     for each in [i for i in data.columns if 'date' in i]:
