@@ -18,7 +18,7 @@ class SetupTestCase(unittest.TestCase):
         data = self.api.measurements(
                     city='Delhi',
                     parameter='pm25',
-                    location='Anand Vihar',
+                    location = 'US Diplomatic Post: New Delhi',
                     limit=5,
                     df=True)
 
@@ -28,7 +28,7 @@ class SetupTestCase(unittest.TestCase):
         data = self.api.measurements(
                     country = 'IN',
                     city = 'Delhi',
-                    location = 'Anand Vihar',
+                    location = 'US Diplomatic Post: New Delhi',
                     parameter = 'pm25',
                     limit = 20,
                     index = 'local',
@@ -40,7 +40,7 @@ class SetupTestCase(unittest.TestCase):
         data = self.api.measurements(
                     country = 'IN',
                     city = 'Delhi',
-                    location = 'Anand Vihar',
+                    location = 'US Diplomatic Post: New Delhi',
                     parameter = 'pm25',
                     limit = 100,
                     index = 'local',
@@ -52,7 +52,7 @@ class SetupTestCase(unittest.TestCase):
         data = self.api.measurements(
                     country = 'IN',
                     city = 'Delhi',
-                    location = 'Anand Vihar',
+                    location = 'US Diplomatic Post: New Delhi',
                     parameter = 'pm25',
                     limit = 400,
                     index = 'local',
@@ -64,7 +64,7 @@ class SetupTestCase(unittest.TestCase):
         data = self.api.measurements(
                     country = 'IN',
                     city = 'Delhi',
-                    location = 'Anand Vihar',
+                    location = 'US Diplomatic Post: New Delhi',
                     parameter = 'pm25',
                     limit = 600,
                     index = 'local',
@@ -76,7 +76,7 @@ class SetupTestCase(unittest.TestCase):
         data = self.api.measurements(
                     country = 'IN',
                     city = 'Delhi',
-                    location = 'Anand Vihar',
+                    location = 'US Diplomatic Post: New Delhi',
                     parameter = 'pm25',
                     limit = 900,
                     index = 'local',
@@ -88,7 +88,7 @@ class SetupTestCase(unittest.TestCase):
         data = self.api.measurements(
                     country = 'IN',
                     city = 'Delhi',
-                    location = 'Anand Vihar',
+                    location = 'US Diplomatic Post: New Delhi',
                     parameter = 'pm25',
                     limit = 1500,
                     index = 'local',
@@ -102,7 +102,7 @@ class SetupTestCase(unittest.TestCase):
         data = self.api.measurements(
                     country = 'IN',
                     city = 'Delhi',
-                    location = 'Anand Vihar',
+                    location = 'US Diplomatic Post: New Delhi',
                     parameter = 'pm25',
                     limit = 10000,
                     index = 'local',
