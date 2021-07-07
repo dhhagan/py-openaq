@@ -32,16 +32,9 @@ Feel free to send pull requests if you are comfortable, otherwise another develo
 
 ### Running Tests Locally
 
-To run the tests locally:
+To run the tests locally (with coverage):
 
-    python setup.py test
-
-To run the tests locally with coverage:
-
-    coverage run --source openaq setup.py test
-
-    # View the report
-    coverage report -m
+    poetry run tox
 
 ## Quickstart
 

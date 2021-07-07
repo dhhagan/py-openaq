@@ -1,0 +1,27 @@
+name: testing
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  tests:
+    name: test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: [3.6, 3.7, 3.8, 3.9]
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@master
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install tox-gh-actions poetry
+
+      - name: Test with tox
+        run: tox
