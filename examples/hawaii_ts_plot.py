@@ -4,8 +4,11 @@ Hawai'i SO2 Timeseries
 _thumb: .2, .6
 """
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import seaborn as sns
 import openaq
+
+mpl.rcParams["mathtext.default"] = "regular"
 
 sns.set(style="ticks", font_scale=1.35)
 
@@ -33,4 +36,4 @@ ax.set_xlabel("")
 # move the legend to the side
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 
-sns.despine(offset=5)
+sns.despine()
