@@ -1,3 +1,8 @@
+**Note: This library is no longer actively maintained. OpenAQ has released its own Python wrapper for its new API. Details can be 
+found by visiting their website or Github Organization.**
+
+
+
 [![Build Status](https://travis-ci.org/dhhagan/py-openaq.svg?branch=master)](https://travis-ci.org/dhhagan/py-openaq)
 [![PyPI version](https://badge.fury.io/py/py-openaq.svg)](https://badge.fury.io/py/py-openaq)
 [![Coverage Status](https://coveralls.io/repos/dhhagan/py-openaq/badge.svg?branch=master&service=github)](https://coveralls.io/github/dhhagan/py-openaq?branch=master)
