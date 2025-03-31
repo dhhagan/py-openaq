@@ -14,6 +14,15 @@ class SetupTestCase(unittest.TestCase):
     def test_setup(self):
         self.assertIsInstance(self.api, openaq.OpenAQ)
 
+    def test_error_on_empty_df(self):
+        empty_df = pd.DataFrame(
+                            columns= ['date.local', 'city', 
+                                'coordinates.latitude', 'coordinates.longitude', 
+                                'country', 'date.utc', 'location', 
+                                'parameter', 'unit', 'value']).set_index('date.local')
+        with self.assertRaises(AssertionError):
+            tsplot(empty_df)
+
     def test_tsplot_1hr(self):
         data = self.api.measurements(
                     city='Delhi',

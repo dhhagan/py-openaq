@@ -89,6 +89,7 @@ def tsplot(data, time_col=None, ax=None, parameter=None, rs='1h',
 
     """
     assert isinstance(data, pd.DataFrame), "`data` must be a pandas dataframe"
+    assert len(data) > 0, "`data` to plot can not be an empty pandas dataframe"
     assert parameter in [None, 'pm25', 'pm10', 'o3', 'no2', 'bc', 'co', 'so2'], "Invalid parameter"
 
     if "figsize" not in plot_kws.keys():
